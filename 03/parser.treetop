@@ -1,0 +1,103 @@
+grammar Arithmetic
+  rule result
+    expr
+  end
+
+  rule expr
+    additive
+  end
+
+  rule additive
+    addition / multiplicative
+  end
+
+  rule multiplicative
+    multiplication / negation / exponent
+  end
+
+  rule exponent
+    exponentiation / term
+  end
+
+  rule term
+    function / variable / number / '(' e:expr ')'
+    {
+      def to_sexp
+        e.to_sexp
+      end
+    }
+  end
+
+  rule exponentiation
+    a:term whitespace '^' whitespace b:exponent
+    {
+      def to_sexp
+        [:^, a.to_sexp, b.to_sexp]
+      end
+    }
+  end
+
+  rule addition
+    a:multiplicative whitespace "+" whitespace b:additive
+    {
+      def to_sexp
+        [:+, a.to_sexp, b.to_sexp]
+      end
+    }
+  end
+
+  rule multiplication
+    a:exponent whitespace "*" whitespace b:multiplicative
+    {
+      def to_sexp
+        [:*, a.to_sexp, b.to_sexp]
+      end
+    }
+  end
+
+  rule negation
+    '-' expr:multiplicative
+    {
+      def to_sexp
+        [:-, expr.to_sexp]
+      end
+    }
+  end
+
+  rule function
+    name:('sin' / 'cos') '(' whitespace arg:expr whitespace ')'
+    {
+      def to_sexp
+        [name.text_value.to_sym, arg.to_sexp]
+      end
+    }
+  end
+
+  rule number
+    [0-9]+ '.' [0-9]+
+    {
+      def to_sexp
+        [:number, Float(text_value)]
+      end
+    } /
+    [0-9]+
+    {
+      def to_sexp
+        [:number, Integer(text_value)]
+      end
+    }
+  end
+
+  rule variable
+    [a-z] [a-z0-9]*
+    {
+      def to_sexp
+        [:variable, text_value.to_sym]
+      end
+    }
+  end
+
+  rule whitespace
+    " "*
+  end
+end
