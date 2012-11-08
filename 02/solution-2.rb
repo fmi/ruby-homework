@@ -26,7 +26,7 @@ class Collection
   end
 
   def filter(criteria)
-    Collection.new @songs.select { |song| criteria.met_by? song }
+    Collection.new @songs.select { |song| criteria.matches? song }
   end
 
   def artists
@@ -42,7 +42,7 @@ class Collection
   end
 
   def adjoin(other)
-    Collection.new songs | other.songs
+    Collection.new self.songs | other.songs
   end
 
   def each(&block)
@@ -88,6 +88,6 @@ class Criterion
   end
 
   def !
-    Criterion.new { |song| not self.matches?(song) }
+    Criterion.new { |song| not matches?(song) }
   end
 end
