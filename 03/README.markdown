@@ -79,7 +79,7 @@
 Класът за израз трябва да може да намери производна. Ето няколко прости примера:
 
     Expr.parse('x * x').derive(:x)         => Expr.parse('x + x')
-    Expr.parse('2 * x + 3 * y').derive(:y) => Expr.parse('2')
+    Expr.parse('2 * x + 3 * y').derive(:y) => Expr.parse('3')
     Expr.parse('sin(x)').derive(:x)        => Expr.parse('cos(x)')
 
 Ще ви припомним правилата за изчисляване на производни, където `x` е променлива, а `a` и `b` са функции:
