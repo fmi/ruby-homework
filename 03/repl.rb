@@ -22,6 +22,7 @@ class InteractiveShell
     raise
   rescue => e
     puts "ERROR: #{e.class} => #{e.message}"
+    puts e.backtrace.join("\n")
   end
 
   def run
