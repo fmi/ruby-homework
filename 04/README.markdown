@@ -33,13 +33,14 @@
 		filter = PrivacyFilter.new 'someone@example.com'
 		filter.preserve_email_hostname = true
 		filter.filtered # => '[FILTERED]@example.com'
-- При вдигнат флаг `partially_preserve_email_username`, се подразбира вдигнат флаг `preserve_email_hostname` и се филтрира само част от потребителското име в даден валиден мейл, например:
+- При вдигнат флаг `partially_preserve_email_username`, се подразбира вдигнат флаг `preserve_email_hostname` и се филтрира само част от потребителското име в даден валиден мейл, като първите три символа се запазват. Например:
 
 		filter = PrivacyFilter.new 'someone@example.com'
 		filter.partially_preserve_email_username = true
 		filter.filtered # => 'som[FILTERED]@example.com'
 
 - Ако в горния случай, дължината на потребителското име в email е под 6 символа, то се обфускира цялото потребителско име
+- Първо се заместват валидните email адреси и след това, на този вече филтриран резултат, се прилагат следващите правила, за заместване на телефонни номера
 
 В края на условието сме описали какво считаме за валиден телефонен номер или email.
 
