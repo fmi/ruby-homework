@@ -1,0 +1,6 @@
+lines_per_method: 5
+line_length: 100
+max_nesting_depth: 2
+methods_per_class: 12
+no_semicolons: true
+no_trailing_whitespace: true
