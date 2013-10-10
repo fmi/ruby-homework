@@ -16,12 +16,15 @@ describe "Integer#harmonic" do
   it "returns the n-th harmonic number" do
     2.harmonic.should eq 3/2r
     10.harmonic.should eq 7381/2520r
+    0.harmonic.should eq nil
+    -1.harmonic.should eq nil
   end
 end
 
 describe "Integer#digits" do
   it "constructs an array containing the digits of a number" do
     82.digits.should eq [8, 2]
+    -28.digits.should eq [2, 8]
   end
 end
 
@@ -35,12 +38,14 @@ end
 describe "Array#average" do
   it "calculates the average of the numbers in the array" do
     (1..10).to_a.average.should eq 5.5
+    [].average.should eq nil
   end
 end
 
 describe "Array#drop_every" do
   it "drops every n-th element from an array." do
     (1..10).to_a.drop_every(2).should eq [1, 3, 5, 7, 9]
+    [].drop_every(3).should eq nil
   end
 end
 
