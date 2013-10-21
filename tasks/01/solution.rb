@@ -29,8 +29,8 @@ end
 
 class Array
   def frequencies
-    each_with_object Hash.new(0) do |value, result|
-      result[value] += 1
+    each_with_object Hash.new(0) do |value, occurrences|
+      occurrences[value] += 1
     end
   end
 
