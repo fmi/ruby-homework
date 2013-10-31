@@ -4,11 +4,11 @@ describe TodoList do
       TODO    | Eat spaghetti.               | High   | food, happiness
       TODO    | Get 8 hours of sleep.        | Low    | health
       CURRENT | Party animal.                | Normal | socialization
-      CURRENT | Grok Ruby.                   | High   | development, education
+      CURRENT | Grok Ruby.                   | High   | development, ruby
       DONE    | Have some tea.               | Normal |
       TODO    | Destroy Facebook and Google. | High   | save humanity, conspiracy
       TODO    | Hunt saber-toothed cats.     | Low    | wtf
-      DONE    | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development
+      DONE    | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development, ruby
       TODO    | Find missing socks.          | Low    |
       CURRENT | Grow epic mustache.          | High   | sex appeal
     END
@@ -36,6 +36,17 @@ describe TodoList do
                                            'Grok Ruby.',
                                            'Do the 5th Ruby challenge.'
                                           ]
+  end
+
+  it "filters tasks by multiple tags" do
+    todo_list.filter(Criteria.tags %w[development ruby]).map(&:description).should =~ [
+                                                                                       'Grok Ruby.',
+                                                                                       'Do the 5th Ruby challenge.'
+                                                                                      ]
+  end
+
+  it "filtering by multiple tags matches only tasks with all the tags" do
+    todo_list.filter(Criteria.tags %w[development FMI]).map(&:description).should =~ ['Do the 5th Ruby challenge.']
   end
 
   it "returns the number of the completed tasks" do

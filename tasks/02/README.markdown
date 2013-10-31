@@ -7,16 +7,16 @@
 
 Текстовият файл, дефиниращ To-do списъка, има следния формат:
 
-    TODO        | Eat spaghetti.               | High   | food, happiness
-    TODO        | Get 8 hours of sleep.        | Low    | health
-    IN PROGRESS | Party animal.                | Normal | socialization
-    IN PROGRESS | Grok Ruby.                   | High   | development, education
-    DONE        | Have some tea.               | Normal |
-    TODO        | Destroy Facebook and Google. | High   | save humanity, conspiracy
-    TODO        | Hunt saber-toothed cats.     | Low    | wtf
-    DONE        | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development
-    TODO        | Find missing socks.          | Low    |
-    IN PROGRESS | Grow epic mustache.          | High   | sex appeal
+    TODO    | Eat spaghetti.               | High   | food, happiness
+    TODO    | Get 8 hours of sleep.        | Low    | health
+    CURRENT | Party animal.                | Normal | socialization
+    CURRENT | Grok Ruby.                   | High   | development, ruby
+    DONE    | Have some tea.               | Normal |
+    TODO    | Destroy Facebook and Google. | High   | save humanity, conspiracy
+    TODO    | Hunt saber-toothed cats.     | Low    | wtf
+    DONE    | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development, ruby
+    TODO    | Find missing socks.          | Low    |
+    CURRENT | Grow epic mustache.          | High   | sex appeal
 
 Всеки ред представлява една задача от To-do списъка. Всяка задача се характеризира
 със статус, описание, приоритет и етикети, разделени от символа `|`. Етикетите
@@ -79,7 +79,17 @@ To-do списъкът трябва да има метод `filter`, който 
 
         todo_list.filter Criteria.priority(:high) & !Criteria.tags(['food'])
 
-Забележете, че критерият за етикети приема списък от етикети.
+Забележете, че критерият за етикети приема списък от етикети и филтрирането по
+тях връща тези задачи, които съдържат всички етикети, посочени в критерия.
+Например:
+
+    todo_list.filter Criteria.tags(%w[development ruby])
+
+Ще върне две задачи: `Grok Ruby.` и `Do the 5th Ruby challenge.`. Докато:
+
+    todo_list.filter Criteria.tags(%w[development FMI])
+
+Ще върне само `Do the 5th Ruby challenge.`.
 
 ### Обединяване на подсписъци на To-do списъци
 
