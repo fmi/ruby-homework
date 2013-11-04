@@ -7,17 +7,15 @@ describe TodoList do
       CURRENT | Grok Ruby.                   | High   | development, ruby
       DONE    | Have some tea.               | Normal |
       TODO    | Destroy Facebook and Google. | High   | save humanity, conspiracy
-      TODO    | Hunt saber-toothed cats.     | Low    | wtf
       DONE    | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development, ruby
       TODO    | Find missing socks.          | Low    |
-      CURRENT | Grow epic mustache.          | High   | sex appeal
     END
   end
 
   let(:todo_list) { TodoList.parse text_input }
 
   it "filters tasks by tag" do
-    todo_list.filter(Criteria.tags %w[wtf]).map(&:description).should =~ ['Hunt saber-toothed cats.']
+    todo_list.filter(Criteria.tags %w[health]).map(&:description).should =~ ['Get 8 hours of sleep.']
   end
 
   it "supports a conjuction of filters" do

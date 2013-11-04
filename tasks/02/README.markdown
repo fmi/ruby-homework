@@ -13,10 +13,8 @@
     CURRENT | Grok Ruby.                   | High   | development, ruby
     DONE    | Have some tea.               | Normal |
     TODO    | Destroy Facebook and Google. | High   | save humanity, conspiracy
-    TODO    | Hunt saber-toothed cats.     | Low    | wtf
     DONE    | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development, ruby
     TODO    | Find missing socks.          | Low    |
-    CURRENT | Grow epic mustache.          | High   | sex appeal
 
 Всеки ред представлява една задача от To-do списъка. Всяка задача се характеризира
 със статус, описание, приоритет и етикети, разделени от символа `|`. Етикетите
