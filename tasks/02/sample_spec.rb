@@ -9,6 +9,7 @@ describe TodoList do
       TODO    | Destroy Facebook and Google. | High   | save humanity, conspiracy
       DONE    | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development, ruby
       TODO    | Find missing socks.          | Low    |
+      TODO    | Occupy Sofia University      | High   | #ДАНСwithMe, #occupysu, #оставка
     END
   end
 
@@ -20,7 +21,11 @@ describe TodoList do
 
   it "supports a conjuction of filters" do
     filtered = todo_list.filter Criteria.status(:todo) & Criteria.priority(:high)
-    filtered.map(&:description).should =~ ['Eat spaghetti.', 'Destroy Facebook and Google.']
+    filtered.map(&:description).should =~ [
+                                           'Eat spaghetti.',
+                                           'Destroy Facebook and Google.',
+                                           'Occupy Sofia University'
+                                          ]
   end
 
   it "can be adjoined with another to-do list" do

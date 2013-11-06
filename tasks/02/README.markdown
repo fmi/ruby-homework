@@ -15,6 +15,7 @@
     TODO    | Destroy Facebook and Google. | High   | save humanity, conspiracy
     DONE    | Do the 5th Ruby challenge.   | High   | ruby course, FMI, development, ruby
     TODO    | Find missing socks.          | Low    |
+    TODO    | Occupy Sofia University      | High   | #ДАНСwithMe, #occupysu, #оставка
 
 Всеки ред представлява една задача от To-do списъка. Всяка задача се характеризира
 със статус, описание, приоритет и етикети, разделени от символа `|`. Етикетите
