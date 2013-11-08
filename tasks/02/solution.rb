@@ -1,41 +1,3 @@
-module Criteria
-  class << self
-    def status(status)
-      Criterion.new { |task| task.status == status }
-    end
-
-    def priority(priority)
-      Criterion.new { |task| task.priority == priority }
-    end
-
-    def tags(tags)
-      Criterion.new { |task| tags.all? { |tag| task.tags.include? tag } }
-    end
-  end
-end
-
-class Criterion
-  def initialize(&condition)
-    @condition = condition
-  end
-
-  def matches?(task)
-    @condition.call(task)
-  end
-
-  def &(other)
-    Criterion.new { |task| self.matches?(task) and other.matches?(task) }
-  end
-
-  def |(other)
-    Criterion.new { |task| self.matches?(task) or other.matches?(task) }
-  end
-
-  def !
-    Criterion.new { |task| not matches?(task) }
-  end
-end
-
 class Task
   attr_reader :status, :description, :priority, :tags
 
@@ -50,24 +12,12 @@ end
 class TodoList
   include Enumerable
 
-  attr_reader :tasks
-
-  def self.parse(text_input)
-    tasks = text_input.lines.map do |line|
-      task = normalize_line *line.split('|').map(&:strip)
-      Task.new *task
+  def self.parse(text)
+    parsing = Parsing.new(text) do |status, description, priority, tags|
+      Task.new status, description, priority, tags
     end
 
-    TodoList.new tasks
-  end
-
-  def self.normalize_line(status, description, priority, tags)
-    [
-     status.downcase.to_sym,
-     description,
-     priority.downcase.to_sym,
-     tags.split(',').map(&:strip)
-    ]
+    TodoList.new parsing.tasks
   end
 
   def initialize(tasks = [])
@@ -75,7 +25,7 @@ class TodoList
   end
 
   def filter(criteria)
-    TodoList.new @tasks.select { |task| criteria.matches? task }
+    TodoList.new @tasks.select { |task| criteria.met_by? task }
   end
 
   def adjoin(other)
@@ -83,22 +33,89 @@ class TodoList
   end
 
   def tasks_todo
-    @tasks.select { |task| task.status == :todo }.count
+    filter(Criteria.status :todo).count
   end
 
   def tasks_in_progress
-    @tasks.select { |task| task.status == :current }.count
+    filter(Criteria.status :current).count
   end
 
   def tasks_completed
-    @tasks.select { |task| task.status == :done }.count
+    filter(Criteria.status :done).count
   end
 
   def completed?
-    tasks_completed == tasks.count
+    tasks_completed == @tasks.count
   end
 
-  def each
-    @tasks.each { |song| yield song }
+  def each(&block)
+    @tasks.each &block
+  end
+
+  protected
+
+  attr_reader :tasks
+end
+
+class TodoList::Parsing
+  attr_reader :tasks
+
+  def initialize(text, &block)
+    @tasks = parse_lines(text).map(&block)
+  end
+
+  private
+
+  def parse_lines(text)
+    text.lines.map { |line| line.split('|').map(&:strip) }.map do |attributes|
+      format_attributes *attributes
+    end
+  end
+
+  def format_attributes(status, description, priority, tags)
+    [
+     status.downcase.to_sym,
+     description,
+     priority.downcase.to_sym,
+     tags.split(',').map(&:strip)
+    ]
+  end
+end
+
+module Criteria
+  class << self
+    def status(status)
+      Criterion.new { |task| task.status == status }
+    end
+
+    def priority(priority)
+      Criterion.new { |task| task.priority == priority }
+    end
+
+    def tags(tags)
+      Criterion.new { |task| (tags & task.tags).count == tags.count }
+    end
+  end
+end
+
+class Criterion
+  def initialize(&condition)
+    @condition = condition
+  end
+
+  def met_by?(task)
+    @condition.call(task)
+  end
+
+  def &(other)
+    Criterion.new { |task| self.met_by?(task) and other.met_by?(task) }
+  end
+
+  def |(other)
+    Criterion.new { |task| self.met_by?(task) or other.met_by?(task) }
+  end
+
+  def !
+    Criterion.new { |task| not met_by?(task) }
   end
 end
