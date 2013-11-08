@@ -7,7 +7,7 @@ describe "Bitmap" do
   end
 
   it "supports different palettes" do
-    expect(Bitmap.new([13, 2, 5, 1], 2).render(%w[. * x #])).to eq <<-ASCII.strip
+    expect(Bitmap.new([13, 2, 5, 1], 2).render(%w(. * x #))).to eq <<-ASCII.strip
 ..#*...x
 ..**...*
     ASCII
