@@ -1,5 +1,3 @@
-require './spec_helper.rb'
-
 describe "Memoizer" do
   it "calls the methods of the target class" do
     memoizer = Memoizer.new "Foo"
