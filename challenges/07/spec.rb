@@ -13,7 +13,7 @@ describe "Bitmap" do
   end
 
   it "can render a column" do
-    expect(Bitmap.new([9, 32, 7, 1], 1).render).to eq <<-ASCII.strip
+    expect(Bitmap.new([9, 32, 7, 1], 4).render).to eq <<-ASCII.strip
 ....#..#
 ..#.....
 .....###
