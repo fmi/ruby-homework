@@ -15,7 +15,7 @@ describe '#longest_sequence' do
   end
 
   context 'for a string with multiple longest sequences' do
-    it 'should return an array containg the symbols they are comprised of' do
+    it 'should return an array containing the symbols they are comprised of' do
       'aabb'.longest_sequence.should =~ ['a','b']
       '9898999777'.longest_sequence.should =~ ['7', '9']
       'I    am ....'.longest_sequence.should =~ ['.', ' ']
@@ -25,6 +25,12 @@ describe '#longest_sequence' do
     context 'comprised of the same symbol' do
       it 'should return an array that contains the symbol only once' do
         'aaabbbaaa'.longest_sequence.should =~ ['a', 'b']
+      end
+    end
+
+    context 'for a string with a longest sequence of new line symbols' do
+      it 'should return an array containing only the new line symbol' do
+        "aa\n\n\n".longest_sequence.should =~ ["\n"]
       end
     end
   end
