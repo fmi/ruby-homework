@@ -6,5 +6,5 @@ no_semicolons: true
 no_trailing_whitespace: true
 check_syntax: true
 no_global_variables: true
-english_words_for_names: 'rasterize rasterization renderer renderers html ascii eql bresenham'
+english_words_for_names: 'rasterize rasterization renderer renderers html ascii eql bresenham vertices'
 naming_conventions: true
