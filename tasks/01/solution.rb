@@ -4,14 +4,23 @@ class Integer
     2.upto(pred).all? { |divisor| remainder(divisor).nonzero? }
   end
 
+  def prime_divisors
+    2.upto(abs).select { |divisor| remainder(divisor).zero? and divisor.prime? }
+  end
+
+  def times_divisible_by(x)
+    return 0 if remainder(x).nonzero?
+    div(x).times_divisible_by(x).succ
+  end
+
   def prime_factors
-    return [] if self == 1
-    factor = (2..abs).find { |x| remainder(x).zero? }
-    [factor] + (abs / factor).prime_factors
+    prime_divisors.map do |prime_divisor|
+      [prime_divisor] * times_divisible_by(prime_divisor)
+    end.flatten
   end
 
   def harmonic
-    (1..self).map(&:reciprocal).reduce(:+) if positive?
+    1.upto(self).map(&:reciprocal).reduce(:+) if positive?
   end
 
   def reciprocal
@@ -29,13 +38,12 @@ end
 
 class Array
   def frequencies
-    each_with_object Hash.new(0) do |value, occurrences|
-      occurrences[value] += 1
-    end
+    Hash[uniq.map { |element| [element, count(element)] }]
   end
 
   def average
-    reduce(:+) / length.to_f unless empty?
+    return 0 if empty?
+    reduce(:+).fdiv(length)
   end
 
   def drop_every(n)
@@ -43,11 +51,8 @@ class Array
   end
 
   def combine_with(other)
-    longer, shorter = self.length > other.length ? [self, other] : [other, self]
-
-    combined = take(shorter.length).zip(other.take(shorter.length)).flatten
-    rest     = longer.drop(shorter.length)
-
-    combined + rest
+    common = [length, other.length].min
+    excess = self[common...length] + other[common...other.length]
+    self[0...common].zip(other[0...common]).flatten(1) + excess
   end
 end
