@@ -27,4 +27,4 @@
 
 ## Примерен тест
 
-Примерните тестове се намират в [GitHub хранилището с домашните](http://github.com/fmi/ruby-homework/blob/master/challenges/01). За информация как да ги изпълните, погледнете [README-то на хранилището](http://github.com/fmi/ruby-homework).
+Примерните тестове се намират в [GitHub хранилището с домашните](https://github.com/fmi/ruby-homework/blob/master/challenges/01/sample_spec.rb). За информация как да ги изпълните, погледнете [README-то на хранилището](https://github.com/fmi/ruby-homework#readme).
