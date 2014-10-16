@@ -1,4 +1,4 @@
-describe 'tic_tac_toe_board_from' do
+describe 'render_tic_tac_toe_board_to_ascii' do
   it 'renders boards with x and o markers' do
     expect(render_tic_tac_toe_board_to_ascii([
       :x,  nil, nil,
