@@ -23,10 +23,19 @@
 
 ## Пример
 
-`"  \nHow much wood would\na woodchuck chuck if a woodchuck could chuck wood?\n   As much as a woodchuck would chuck if a woodchuck could chuck wood.\n\n ".word_wrap(20)`
+    "  \nHow much wood would\na woodchuck chuck if a woodchuck could chuck wood?\n   As much as a woodchuck would chuck if a woodchuck could chuck wood.\n\n ".word_wrap(20)`
+
 Резултат:
 
-	["How much wood would", "a woodchuck chuck if", "a woodchuck could", "chuck wood? As much", "as a woodchuck would", "chuck if a woodchuck", "could chuck wood."]
+    [
+      "How much wood would",
+      "a woodchuck chuck if",
+      "a woodchuck could",
+      "chuck wood? As much",
+      "as a woodchuck would",
+      "chuck if a woodchuck",
+      "could chuck wood."
+    ]
 
 Както и в предните предизвикателства - няма да получавате невалидни входни данни.
 
