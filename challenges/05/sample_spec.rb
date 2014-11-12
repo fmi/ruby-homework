@@ -1,5 +1,5 @@
 describe "String#anagrams" do
-  def anagrams_for(word, amongst:, are:)
+  def anagrams_for(word, amongst, are)
     expect(word.anagrams(amongst)).to match_array are
   end
 
