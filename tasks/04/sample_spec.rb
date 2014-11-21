@@ -11,6 +11,11 @@ describe 'Command Line Toolkit' do
       expect(actual_text).to eq expected_text
     end
 
+    failure_message do |actual|
+      "expected:\n#{rstrip_lines.call(unindent.call(expected))}\n" +
+      "actual:\n#{rstrip_lines.call(UI::TextScreen.draw(&actual).to_s)}"
+    end
+
     def supports_block_expectations?
       true
     end
