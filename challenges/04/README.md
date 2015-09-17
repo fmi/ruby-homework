@@ -1,4 +1,4 @@
-﻿# Remove Duplicates
+# Remove Duplicates
 
 Обичате Ruby повече отколкото обичате спагети?
 
