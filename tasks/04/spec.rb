@@ -159,8 +159,8 @@ describe 'Command Line Toolkit' do
       label text: 'get it?'
     end.to render_as <<-RESULT
       someveryINTERESTINGget it?
-              TEXTGOES
-                  HERE
+              TEXTGOES       
+                  HERE       
     RESULT
   end
 
@@ -194,8 +194,8 @@ describe 'Command Line Toolkit' do
       label text: 'GET IT?'
     end.to render_as <<-RESULT
       SOMEVERYinterestingGET IT?
-              textgoes
-                  here
+              textgoes       
+                  here       
     RESULT
   end
 
