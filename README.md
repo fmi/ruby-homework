@@ -15,3 +15,5 @@
     $ rspec sample_spec.rb --require ./solution.rb --colour --format documentation
 
 Обърнете внимание, че `solution.rb` трябва да е в текущата директория и трябва да се реферира като `./solution.rb`.
+
+Още инструкции може да прочетете в [ръководството за предаване на домашни](http://fmi.ruby.bg/tasks/guide).
