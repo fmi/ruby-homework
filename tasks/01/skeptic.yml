@@ -1,0 +1,9 @@
+lines_per_method: 10
+line_length: 80
+max_nesting_depth: 2
+no_semicolons: true
+no_trailing_whitespace: true
+check_syntax: true
+no_global_variables: true
+english_words_for_names: 'bgn usd eur gbp leva dollars euro pounds'
+naming_conventions: true
