@@ -6,6 +6,6 @@ no_semicolons: true
 no_trailing_whitespace: true
 check_syntax: true
 no_global_variables: true
-english_words_for_names: 'xs ys snake direction dimensions position'
+english_words_for_names: 'xs ys'
 naming_conventions: true
 spaces_around_operators: true
