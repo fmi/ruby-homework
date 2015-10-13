@@ -6,7 +6,7 @@ describe '#move' do
 end
 
 describe '#grow' do
-  it 'grow snake right' do
+  it 'grows snake right' do
     expect(grow([[4, 6], [5, 6], [5, 7]], [0, 1])).
       to eq [[4, 6], [5, 6], [5, 7], [5, 8]]
   end
