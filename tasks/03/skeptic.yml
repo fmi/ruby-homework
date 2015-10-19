@@ -1,0 +1,10 @@
+lines_per_method: 15
+line_length: 100
+max_nesting_depth: 2
+methods_per_class: 10
+no_semicolons: true
+no_trailing_whitespace: true
+check_syntax: true
+no_global_variables: true
+english_words_for_names: 'fibonacci'
+naming_conventions: true
