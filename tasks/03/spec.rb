@@ -1,5 +1,5 @@
 describe 'Fifth task' do
-  describe RationalSequence do
+  describe 'RationalSequence' do
     it 'can calculate the first four rational numbers' do
       expect(RationalSequence.new(4).to_a).to eq %w(1/1 2/1 1/2 1/3).map(&:to_r)
     end
@@ -21,7 +21,7 @@ describe 'Fifth task' do
     end
   end
 
-  describe FibonacciSequence do
+  describe 'FibonacciSequence' do
     it 'can return the first two Fibonacci numbers' do
       expect(FibonacciSequence.new(2).to_a).to eq [1, 1]
     end
@@ -48,7 +48,7 @@ describe 'Fifth task' do
     end
   end
 
-  describe PrimeSequence do
+  describe 'PrimeSequence' do
     it 'returns an empty array for 0 primes' do
       expect(PrimeSequence.new(0).to_a).to eq []
     end
@@ -67,7 +67,7 @@ describe 'Fifth task' do
     end
   end
 
-  describe DrunkenMathematician do
+  describe 'DrunkenMathematician' do
     describe '#meaningless' do
       it 'can calculate for 0 and 1' do
         expect(DrunkenMathematician.meaningless(0)).to eq 1
