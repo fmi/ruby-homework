@@ -68,7 +68,7 @@ _Бутон-натискане е термин, означаващ натиск�
 Примери:
 
 ```ruby
-button_presses('nvm') # => 3
+button_presses('nvm') # => 6
 button_presses('WHERE DO U WANT 2 MEET L8R') # => 47
 ```
 
