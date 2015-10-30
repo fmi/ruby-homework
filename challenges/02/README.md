@@ -3,10 +3,11 @@
 Представете си (не толкова) далечното минало. Няма "умни телефони", няма iPhone,
 но пък има ей такива клетъчни телефони:
 
-![motorola](http://syamsul.net/wp-content/uploads/2008/08/motorola_razr_v3.jpg =x250)
-![nokia](https://upload.wikimedia.org/wikipedia/commons/b/be/Nokia_3310_blue_R7309170_wp.jpg  =x250)
-![lg](https://s-media-cache-ak0.pinimg.com/236x/22/44/5c/22445c544c9cbc12444f3481c0da65f4.jpg =x250)
-![sony-ericsson](https://hdwebpros.com/images/blog/cellphone-W800i-2005.jpg =x250)
+<img src="http://syamsul.net/wp-content/uploads/2008/08/motorola_razr_v3.jpg" alt="motorolla"  height='250' />
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Nokia_3310_blue_R7309170_wp.jpg" alt="nokia"  height='250' />
+<img src="https://hdwebpros.com/images/blog/cellphone-W800i-2005.jpg" alt="sony-ericsson"  height='250' />
+<img src="https://s-media-cache-ak0.pinimg.com/236x/22/44/5c/22445c544c9cbc12444f3481c0da65f4.jpg" alt="lg"  height='250' />
+
 
 ...и естествено, всеки ден си счупвате пръстите от писане на SMS-и.
 
