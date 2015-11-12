@@ -1,6 +1,5 @@
 shared_examples 'a deck' do |klass, suits:, ranks:|
-  let(:described_class) { Object.const_get(klass) }
-  subject(:deck_class) { described_class }
+  subject(:deck_class) { Object.const_get(klass) }
 
   let(:ace_of_spades) { Card.new(:ace, :spades) }
   let(:nine_of_clubs) { Card.new(9, :clubs) }
@@ -288,7 +287,7 @@ describe 'BeloteDeck' do
         it 'returns true for cards with numbers' do
           hand = BeloteDeck.new([
             Card.new(:ace, :clubs),
-            Card.new(:jack, :king),
+            Card.new(:jack, :spades),
             Card.new(7, :diamonds),
             Card.new(10, :hearts),
             Card.new(:king, :hearts),
@@ -431,7 +430,7 @@ describe 'SixtySixDeck' do
         hand = SixtySixDeck.new([
           Card.new(:ace, :clubs),
           Card.new(:jack, :spades),
-          Card.new(7, :clubs),
+          Card.new(9, :clubs),
           Card.new(10, :hearts),
           Card.new(:queen, :clubs),
           Card.new(:king, :clubs),
@@ -444,7 +443,7 @@ describe 'SixtySixDeck' do
         hand = SixtySixDeck.new([
           Card.new(:ace, :clubs),
           Card.new(:jack, :spades),
-          Card.new(7, :clubs),
+          Card.new(9, :clubs),
           Card.new(10, :hearts),
           Card.new(:queen, :clubs),
           Card.new(:king, :clubs),
@@ -457,7 +456,7 @@ describe 'SixtySixDeck' do
         hand = SixtySixDeck.new([
           Card.new(:ace, :clubs),
           Card.new(:jack, :spades),
-          Card.new(7, :clubs),
+          Card.new(9, :clubs),
           Card.new(10, :hearts),
           Card.new(:queen, :clubs),
           Card.new(:king, :spades),
