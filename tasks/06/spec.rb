@@ -16,7 +16,7 @@ describe 'TurtleGraphics' do
             3.times { move }
           end
 
-          expect(canvas[0]).to all(be > 0)
+          expect(canvas[0]).to eq [2, 2]
           expect(canvas[1]).to eq [0, 0]
         end
 
