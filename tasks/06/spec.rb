@@ -138,6 +138,29 @@ describe 'TurtleGraphics' do
         '000'
       ].join("\n")
     end
+
+    it 'can render with a different number of symbols' do
+      ascii_canvas = TurtleGraphics::Canvas::ASCII.new(['z', 'o', 't'])
+      ascii = TurtleGraphics::Turtle.new(3, 3).draw(ascii_canvas) do
+        move
+        turn_right
+        move
+        2.times { turn_right }
+        move
+        turn_left
+        move
+        turn_left
+        move
+        2.times { turn_right }
+        move
+      end
+
+      expect(ascii.sub(/\n\z/, '')).to eq [
+        'ttz',
+        'ooz',
+        'zzz'
+      ].join("\n")
+    end
   end
 
   describe 'Canvas::HTML' do
