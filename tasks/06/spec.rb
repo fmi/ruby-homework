@@ -11,16 +11,14 @@ describe 'TurtleGraphics' do
           expect(canvas).to eq [[1, 1], [0, 0]]
         end
 
-        it 'moves the turtle to the start of row when we are at its end' do
+        it 'moves the turtle to the start of row or column when we are at its end' do
           canvas = create_canvas do
             3.times { move }
           end
 
           expect(canvas[0]).to eq [2, 2]
           expect(canvas[1]).to eq [0, 0]
-        end
 
-        it 'moves the turtle to the start of column when we are at its end' do
           canvas = create_canvas do
             turn_right
             2.times { move }
@@ -44,7 +42,6 @@ describe 'TurtleGraphics' do
           expect(canvas[1][1]).to eq 0
         end
 
-
         it 'counts the times we have passed through every cell' do
           canvas = create_canvas do
             2.times { move }
@@ -62,9 +59,7 @@ describe 'TurtleGraphics' do
           end
 
           expect(canvas).to eq [[1, 0], [1, 0]]
-        end
 
-        it 'rotates the turtle to its initial position after four turns' do
           canvas = create_canvas do
             4.times { turn_right }
             move
@@ -82,9 +77,7 @@ describe 'TurtleGraphics' do
           end
 
           expect(canvas).to eq [[1, 0], [1, 0]]
-        end
 
-        it 'rotates the turtle to its initial position after four turns' do
           canvas = create_canvas do
             4.times { turn_left }
             move
