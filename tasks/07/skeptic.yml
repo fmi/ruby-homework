@@ -1,0 +1,12 @@
+lines_per_method: 6
+line_length: 80
+max_nesting_depth: 1
+methods_per_class: 8
+no_semicolons: true
+no_trailing_whitespace: true
+check_syntax: true
+no_global_variables: true
+english_words_for_names: ''
+naming_conventions: true
+max_method_arity: 4
+spaces_around_operators: true
