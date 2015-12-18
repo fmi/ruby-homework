@@ -105,11 +105,12 @@ describe LazyMode do
         important_tasks = weekly_agenda.where(tag: :important)
         expect(important_tasks.notes.size).to eq(2)
         expect(important_tasks.notes.find { |note| note.header == 'task' }).not_to be_nil
-        expect(important_tasks.notes.find { |note| note.header == 'subtask' }).not_to be_nil
+        expect(important_tasks.notes.find { |note| note.header == 'subtask 2' }).not_to be_nil
       end
 
       it 'filters by tag and text' do
-        important_subtasks = @file.weekly_agenda.where(tag: :important, text: /sub/)
+        weekly_agenda = @file.weekly_agenda(LazyMode::Date.new('2012-08-05'))
+        important_subtasks = weekly_agenda.where(tag: :important, text: /sub/)
         expect(important_subtasks.notes.size).to eq(1)
         expect(important_subtasks.notes.first.header).to eq('subtask 2')
       end
