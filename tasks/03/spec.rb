@@ -1,4 +1,4 @@
-describe 'Fifth task' do
+describe 'Third task' do
   describe 'RationalSequence' do
     it 'can calculate the first four rational numbers' do
       expect(RationalSequence.new(4).to_a).to eq %w(1/1 2/1 1/2 1/3).map(&:to_r)
