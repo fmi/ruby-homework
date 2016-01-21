@@ -88,11 +88,11 @@ describe Spreadsheet do
     end
 
     it 'returns the value of existing cells for complex cell indexes' do
-      sheet = Spreadsheet.new (["a#{"\t" * 30}b"] * 20).join("\n")
+      sheet = Spreadsheet.new (["a#{"\tb" * 30}c"] * 20).join("\n")
 
-      expect(sheet['AD1']).to eq ''
-      expect(sheet['AE1']).to eq 'b'
-      expect(sheet['AE19']).to eq 'b'
+      expect(sheet['AD1']).to eq 'b'
+      expect(sheet['AE1']).to eq 'bc'
+      expect(sheet['AE19']).to eq 'bc'
     end
 
     it 'returns the calculated value of formulae cells' do
