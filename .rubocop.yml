@@ -1,0 +1,2759 @@
+AllCops:
+  DisabledByDefault: true
+
+# Disable the FileName cop as we are using RuboCop by giving it a string, for which
+# the default filename is `(string)`. This file name is invalid.
+#
+# This is currently disabled by the above directive. If the default cops are ever
+# enabled by default, this one should be explicitly disabled.
+#
+# Style/FileName:
+#   Enabled: false
+
+# Style/MutableConstant:
+#   Enabled: true
+#   Severity: warning
+
+# This cop checks for ambiguous operators in the first argument of a
+# method invocation without parentheses.
+#
+# @example
+#   array = [1, 2, 3]
+#
+#   # The `*` is interpreted as a splat operator but it could possibly be
+#   # a `*` method invocation (i.e. `do_something.*(array)`).
+#   do_something *array
+#
+#   # With parentheses, there's no ambiguity.
+#   do_something(*array)
+# Lint/AmbiguousOperator:
+#   Enabled: true
+#   Severity: warning
+
+# This cop checks for assignments in the conditions of
+# if/while/until.
+# Lint/AssignmentInCondition:
+#   Enabled: true
+#   Severity: warning
+
+# This cop checks whether the end keywords are aligned properly for do
+# end blocks.
+#
+# Three modes are supported through the `AlignWith` configuration
+# parameter:
+#
+# `start_of_block` : the `end` shall be aligned with the
+# start of the line where the `do` appeared.
+#
+# `start_of_line` : the `end` shall be aligned with the
+# start of the line where the expression started.
+#
+# `either` (which is the default) : the `end` is allowed to be in either
+# location. The autofixer will default to `start_of_line`.
+#
+# @example
+#
+#   # either
+#   variable = lambda do |i|
+#     i
+#   end
+#
+#   # start_of_block
+#   foo.bar
+#     .each do
+#        baz
+#      end
+#
+#   # start_of_line
+#   foo.bar
+#     .each do
+#        baz
+#   end
+Lint/BlockAlignment:
+  Enabled: true
+  AlignWith: start_of_block
+
+# This cop checks for conditions that are not on the same line as
+# if/while/until.
+#
+# @example
+#
+#   if
+#     some_condition
+#     do_something
+#   end
+Lint/ConditionPosition:
+  Enabled: true
+
+# This cop checks for calls to debugger or pry.
+Lint/Debugger:
+  Enabled: true
+
+# This cop checks whether the end keywords of method definitions are
+# aligned properly.
+#
+# Two modes are supported through the AlignWith configuration
+# parameter. If it's set to `start_of_line` (which is the default), the
+# `end` shall be aligned with the start of the line where the `def`
+# keyword is. If it's set to `def`, the `end` shall be aligned with the
+# `def` keyword.
+#
+# @example
+#
+#   private def foo
+#   end
+Lint/DefEndAlignment:
+  Enabled: true
+
+# This cop checks for uses of the deprecated class method usages.
+Lint/DeprecatedClassMethods:
+  Enabled: true
+
+# This cop checks for duplicated instance (or singleton) method
+# definitions.
+#
+# @example
+#   @bad
+#   def duplicated
+#     1
+#   end
+#
+#   def duplicated
+#     2
+#   end
+Lint/DuplicateMethods:
+  Enabled: true
+
+# This cop checks for odd else block layout - like
+# having an expression on the same line as the else keyword,
+# which is usually a mistake.
+#
+# @example
+#
+#   if something
+#     ...
+#   else do_this
+#     do_that
+#   end
+Lint/ElseLayout:
+  Enabled: true
+
+# This cop checks for empty `ensure` blocks
+Lint/EmptyEnsure:
+  Enabled: true
+
+# This cop checks for empty interpolation.
+#
+# @example
+#
+#   "result is #{}"
+Lint/EmptyInterpolation:
+  Enabled: true
+
+# This cop checks whether the end keywords are aligned properly.
+# @example
+#   variable = if true
+#              end
+Lint/EndAlignment:
+  Enabled: true
+
+# This cop checks for the use of *Kernel#eval*.
+Lint/Eval:
+  Enabled: true
+
+# This cop identifies Float literals which are, like, really really really
+# really really really really really big. Too big. No-one needs Floats
+# that big. If you need a float that big, something is wrong with you.
+#
+# @example
+#   # bad
+#   float = 3.0e400
+#
+#   # good
+#   float = 42.9
+Lint/FloatOutOfRange:
+  Enabled: true
+
+# This lint sees if there is a mismatch between the number of
+# expected fields for format/sprintf/#% and what is actually
+# passed as arguments.
+#
+# @example
+#
+#   format('A value: %s and another: %i', a_value)
+Lint/FormatParameterMismatch:
+  Enabled: true
+
+# This cop checks for *rescue* blocks with no body.
+Lint/HandleExceptions:
+  Enabled: true
+  Severity: warning
+
+# This cop checks for implicit string concatenation of string literals
+# which are on the same line.
+#
+# @example
+#   @bad
+#   array = ['Item 1' 'Item 2']
+#
+#   @good
+#   array = ['Item 1Item 2']
+#   array = ['Item 1' + 'Item 2']
+#   array = [
+#     'Item 1' \
+#     'Item 2'
+#   ]
+Lint/ImplicitStringConcatenation:
+  Enabled: true
+
+# This cop checks for `private` or `protected` access modifiers which are
+# applied to a singleton method. These access modifiers do not make
+# singleton methods private/protected. `private_class_method` can be
+# used for that.
+#
+# @example
+#   @bad
+#   class C
+#     private
+#
+#     def self.method
+#       puts 'hi'
+#     end
+#   end
+#
+#   @good
+#   class C
+#     def self.method
+#       puts 'hi'
+#     end
+#
+#     private_class_method :method
+#   end
+#
+#   class C
+#     class << self
+#       private
+#
+#       def method
+#         puts 'hi'
+#       end
+#     end
+#   end
+Lint/IneffectiveAccessModifier:
+  Enabled: true
+  Severity: warning
+
+# This cop looks for error classes inheriting from `Exception`
+# and its standard library subclasses, excluding subclasses of
+# `StandardError`. It is configurable to suggest using either
+# `RuntimeError` (default) or `StandardError` instead.
+#
+# @example
+#
+#   # bad
+#
+#   class C < Exception; end
+#
+# @example
+#
+#   # EnforcedStyle: runtime_error (default)
+#
+#   # good
+#
+#   class C < RuntimeError; end
+#
+# @example
+#
+#   # EnforcedStyle: standard_error
+#
+#   # good
+#
+#   class C < StandardError; end
+Lint/InheritException:
+  Enabled: true
+  EnforcedStyle: standard_error
+
+# This cop checks for literals used as the conditions or as
+# operands in and/or expressions serving as the conditions of
+# if/while/until.
+#
+# @example
+#
+#   if 20
+#     do_something
+#   end
+#
+#   if some_var && true
+#     do_something
+#   end
+Lint/LiteralInCondition:
+  Enabled: true
+
+# This cop checks for interpolated literals.
+#
+# @example
+#
+#   "result is #{10}"
+Lint/LiteralInInterpolation:
+  Enabled: true
+
+# This cop checks for nested method definitions.
+#
+# @example
+#   # `bar` definition actually produces methods in the same scope
+#   # as the outer `foo` method. Furthermore, the `bar` method
+#   # will be redefined every time `foo` is invoked.
+#   def foo
+#     def bar
+#     end
+#   end
+Lint/NestedMethodDefinition:
+  Enabled: true
+
+# Don't omit the accumulator when calling `next` in a `reduce` block.
+#
+# @example
+#   # bad
+#   result = (1..4).reduce(0) do |acc, i|
+#     next if i.odd?
+#     acc + i
+#   end
+#
+#   # good
+#   result = (1..4).reduce(0) do |acc, i|
+#     next acc if i.odd?
+#     acc + i
+#   end
+Lint/NextWithoutAccumulator:
+  Enabled: true
+  Severity: warning
+
+# This cop checks for quotes and commas in %w, e.g.
+#
+#   `%w('foo', "bar")`
+#
+# it is more likely that the additional characters are unintended (for
+# example, mistranslating an array of literals to percent string notation)
+# rather than meant to be part of the resulting strings.
+Lint/PercentStringArray:
+  Enabled: true
+  Severity: warning
+
+# This cop checks for colons and commas in %i, e.g.
+#
+#   `%i(:foo, :bar)`
+#
+# it is more likely that the additional characters are unintended (for
+# example, mistranslating an array of literals to percent string notation)
+# rather than meant to be part of the resulting symbols.
+Lint/PercentSymbolArray:
+  Enabled: true
+
+# This cop checks for expressions where there is a call to a predicate
+# method with at least one argument, where no parentheses are used around
+# the parameter list, and a boolean operator, && or ||, is used in the
+# last argument.
+#
+# The idea behind warning for these constructs is that the user might
+# be under the impression that the return value from the method call is
+# an operand of &&/||.
+#
+# @example
+#
+#   if day.is? :tuesday && month == :jan
+#     ...
+#   end
+Lint/RequireParentheses:
+  Enabled: true
+
+# This cop checks for a rescued exception that get shadowed by a
+# less specific exception being rescued before a more specific
+# exception is rescued.
+#
+#   @example
+#
+#   # bad
+#   begin
+#     something
+#   rescue Exception
+#     handle_exception
+#   rescue StandardError
+#     handle_standard_error
+#   end
+#
+#   # good
+#   begin
+#     something
+#   rescue StandardError
+#     handle_standard_error
+#   rescue Exception
+#     handle_exception
+#   end
+Lint/ShadowedException:
+  Enabled: true
+
+# This cop checks for string conversion in string interpolation,
+# which is redundant.
+#
+# @example
+#
+#   "result is #{something.to_s}"
+Lint/StringConversionInInterpolation:
+  Enabled: true
+
+# This cop checks for underscore-prefixed variables that are actually
+# used.
+Lint/UnderscorePrefixedVariableName:
+  Enabled: true
+
+# This cop checks for using Fixnum or Bignum constant.
+#
+# @example
+#   # bad
+#   1.is_a?(Fixnum)
+#   1.is_a?(Bignum)
+#
+#   # good
+#   1.is_a?(Integer)
+Lint/UnifiedInteger:
+  Enabled: true
+
+# This cop detects instances of rubocop:disable comments that can be
+# removed without causing any offenses to be reported. It's implemented
+# as a cop in that it inherits from the Cop base class and calls
+# add_offense. The unusual part of its implementation is that it doesn't
+# have any on_* methods or an investigate method. This means that it
+# doesn't take part in the investigation phase when the other cops do
+# their work. Instead, it waits until it's called in a later stage of the
+# execution. The reason it can't be implemented as a normal cop is that
+# it depends on the results of all other cops to do its work.
+Lint/UnneededDisable:
+  Enabled: true
+
+# This cop checks for unneeded usages of splat expansion
+#
+# @example
+#   # bad
+#   a = *[1, 2, 3]
+#   a = *'a'
+#   a = *1
+#
+#   begin
+#     foo
+#   rescue *[StandardError, ApplicationError]
+#     bar
+#   end
+#
+#   case foo
+#   when *[1, 2, 3]
+#     bar
+#   else
+#     baz
+#   end
+#
+#   # good
+#   c = [1, 2, 3]
+#   a = *c
+#   a, b = *c
+#   a, *b = *c
+#   a = *1..10
+#   a = ['a']
+#
+#   begin
+#     foo
+#   rescue StandardError, ApplicationError
+#     bar
+#   end
+#
+#   case foo
+#   when *[1, 2, 3]
+#     bar
+#   else
+#     baz
+#   end
+Lint/UnneededSplatExpansion:
+  Enabled: true
+
+# This cop checks for unreachable code.
+# The check are based on the presence of flow of control
+# statement in non-final position in *begin*(implicit) blocks.
+Lint/UnreachableCode:
+  Enabled: true
+
+# This cop checks for unused block arguments.
+#
+# @example
+#
+#   do_something do |used, unused, _unused_but_allowed|
+#     puts used
+#   end
+Lint/UnusedBlockArgument:
+  Enabled: true
+
+# This cop checks for unused method arguments.
+#
+# @example
+#
+#   def some_method(used, unused, _unused_but_allowed)
+#     puts used
+#   end
+Lint/UnusedMethodArgument:
+  Enabled: true
+
+# This cop checks for every useless assignment to local variable in every
+# scope.
+# The basic idea for this cop was from the warning of `ruby -cw`:
+#
+#   assigned but unused variable - foo
+#
+# Currently this cop has advanced logic that detects unreferenced
+# reassignments and properly handles varied cases such as branch, loop,
+# rescue, ensure, etc.
+Lint/UselessAssignment:
+  Enabled: true
+
+# This cop checks for comparison of something with itself.
+#
+# @example
+#
+#  x.top >= x.top
+Lint/UselessComparison:
+  Enabled: true
+
+# This cop checks for useless `else` in `begin..end` without `rescue`.
+#
+# @example
+#   begin
+#     do_something
+#   else
+#     handle_errors # This will never be run.
+#   end
+Lint/UselessElseWithoutRescue:
+  Enabled: true
+
+# This cop checks for excessive nesting of conditional and looping
+# constructs. Despite the cop's name, blocks are not considered as an
+# extra level of nesting.
+#
+# The maximum level of nesting allowed is configurable.
+Metrics/BlockNesting:
+  Enabled: true
+  Max: 5
+
+# This cop checks if the length a class exceeds some maximum value.
+# Comment lines can optionally be ignored.
+# The maximum allowed length is configurable.
+# Metrics/ClassLength:
+#   Enabled: true
+#   Max: 100
+#   CountComments: false
+
+# This cop checks the length of lines in the source code.
+# The maximum length is configurable.
+Metrics/LineLength:
+  Enabled: true
+  Max: 100
+  AllowHeredoc: true
+  AllowURI: true
+
+# This cop checks if the length of a method exceeds some maximum value.
+# Comment lines can optionally be ignored.
+# The maximum allowed length is configurable.
+# Metrics/MethodLength:
+#   Enabled: true
+#   Max: 10
+#   CountComments: false
+
+# This cop checks if the length a module exceeds some maximum value.
+# Comment lines can optionally be ignored.
+# The maximum allowed length is configurable.
+# Metrics/ModuleLength:
+#   Enabled: true
+#   Max: 100
+#   CountComments: false
+
+# This cop checks for methods with too many parameters.
+# The maximum number of parameters is configurable.
+# On Ruby 2.0+ keyword arguments can optionally
+# be excluded from the total count.
+Metrics/ParameterLists:
+  Enabled: true
+  Max: 6
+
+# This cop checks for double `#start_with?` or `#end_with?` calls
+# separated by `||`. In some cases such calls can be replaced
+# with an single `#start_with?`/`#end_with?` call.
+#
+# @example
+#
+#   @bad
+#   str.start_with?("a") || str.start_with?(Some::CONST)
+#   str.start_with?("a", "b") || str.start_with?("c")
+#   var1 = ...
+#   var2 = ...
+#   str.end_with?(var1) || str.end_with?(var2)
+#
+#   @good
+#   str.start_with?("a", Some::CONST)
+#   str.start_with?("a", "b", "c")
+#   var1 = ...
+#   var2 = ...
+#   str.end_with?(var1, var2)
+Performance/DoubleStartEndWith:
+  Enabled: true
+
+# This cop identifies unnecessary use of a regex where `String#end_with?`
+# would suffice.
+#
+# @example
+#   @bad
+#   'abc' =~ /bc\Z/
+#   'abc'.match(/bc\Z/)
+#
+#   @good
+#   'abc' =~ /ab/
+#   'abc' =~ /\w*\Z/
+Performance/EndWith:
+  Enabled: true
+
+# This cop is used to identify usages of
+#
+# @example
+#   # bad
+#   [1, 2, 3, 4].map { |e| [e, e] }.flatten(1)
+#   [1, 2, 3, 4].collect { |e| [e, e] }.flatten(1)
+#
+#   # good
+#   [1, 2, 3, 4].flat_map { |e| [e, e] }
+#   [1, 2, 3, 4].map { |e| [e, e] }.flatten
+#   [1, 2, 3, 4].collect { |e| [e, e] }.flatten
+Performance/FlatMap:
+  Enabled: true
+
+# This cop identifies the use of a `&block` parameter and `block.call`
+# where `yield` would do just as well.
+#
+# @example
+#   @bad
+#   def method(&block)
+#     block.call
+#   end
+#   def another(&func)
+#     func.call 1, 2, 3
+#   end
+#
+#   @good
+#   def method
+#     yield
+#   end
+#   def another
+#     yield 1, 2, 3
+#   end
+Performance/RedundantBlockCall:
+  Enabled: true
+
+# This cop identifies places where `Hash#merge!` can be replaced by
+# `Hash#[]=`.
+#
+# @example
+#   hash.merge!(a: 1)
+#   hash.merge!({'key' => 'value'})
+#   hash.merge!(a: 1, b: 2)
+Performance/RedundantMerge:
+  Enabled: true
+
+# This cop identifies places where `sort_by { ... }` can be replaced by
+# `sort`.
+#
+# @example
+#   @bad
+#   array.sort_by { |x| x }
+#   array.sort_by do |var|
+#     var
+#   end
+#
+#   @good
+#   array.sort
+Performance/RedundantSortBy:
+  Enabled: true
+
+# This cop identifies places where `sort { |a, b| a.foo <=> b.foo }`
+# can be replaced by `sort_by(&:foo)`.
+#
+# @example
+#   @bad
+#   array.sort { |a, b| a.foo <=> b.foo }
+#
+#   @good
+#   array.sort_by(&:foo)
+#   array.sort_by { |v| v.foo }
+#   array.sort_by do |var|
+#     var.foo
+#   end
+Performance/SortWithBlock:
+  Enabled: true
+
+# This cop identifies unnecessary use of a regex where
+# `String#start_with?` would suffice.
+#
+# @example
+#   @bad
+#   'abc' =~ /\Aab/
+#   'abc'.match(/\Aab/)
+#
+#   @good
+#   'abc' =~ /ab/
+#   'abc' =~ /\A\w*/
+Performance/StartWith:
+  Enabled: true
+
+# Modifiers should be indented as deep as method definitions, or as deep
+# as the class/module keyword, depending on configuration.
+Style/AccessModifierIndentation:
+  Enabled: true
+
+# This cop makes sure that accessor methods are named properly.
+#
+# @example
+#   # bad
+#   def set_attribute(value) ...
+#
+#   # good
+#   def attribute=(value)
+#
+#   # bad
+#   def get_attribute ...
+#
+#   # good
+#   def attribute ...
+Style/AccessorMethodName:
+  Enabled: true
+
+# This cop finds uses of `alias` where `alias_method` would be more
+# appropriate (or is simply preferred due to configuration), and vice
+# versa.
+# It also finds uses of `alias :symbol` rather than `alias bareword`.
+Style/Alias:
+  Enabled: true
+  EnforcedStyle: prefer_alias_method
+
+# Here we check if the elements of a multi-line array literal are
+# aligned.
+Style/AlignArray:
+  Enabled: true
+
+# Here we check if the keys, separators, and values of a multi-line hash
+# literal are aligned.
+Style/AlignHash:
+  Enabled: true
+
+# Here we check if the parameters on a multi-line method call or
+# definition are aligned.
+Style/AlignParameters:
+  Enabled: true
+
+# This cop checks for uses of *and* and *or*.
+Style/AndOr:
+  Enabled: true
+  EnforcedStyle: always
+
+# This cop checks for non-ascii (non-English) characters
+# in comments.
+# Style/AsciiComments:
+#   Enabled: true
+
+# This cop checks for non-ascii characters in identifier names.
+Style/AsciiIdentifiers:
+  Enabled: true
+
+# This cop checks for uses of Module#attr.
+Style/Attr:
+  Enabled: true
+
+# This cop checks for BEGIN blocks.
+Style/BeginBlock:
+  Enabled: true
+
+# This cop looks for uses of block comments (=begin...=end).
+Style/BlockComments:
+  Enabled: true
+
+# Check for uses of braces or do/end around single line or
+# multi-line blocks.
+Style/BlockDelimiters:
+  Enabled: true
+
+# This cop checks whether the end statement of a do..end block
+# is on its own line.
+#
+# @example
+#   # bad
+#   blah do |i|
+#     foo(i) end
+#
+#   # good
+#   blah do |i|
+#     foo(i)
+#   end
+#
+#   # bad
+#   blah { |i|
+#     foo(i) }
+#
+#   # good
+#   blah { |i|
+#     foo(i)
+#   }
+Style/BlockEndNewline:
+  Enabled: true
+
+# This cop checks how the *when*s of a *case* expression
+# are indented in relation to its *case* or *end* keyword.
+#
+# It will register a separate offense for each misaligned *when*.
+Style/CaseIndentation:
+  Enabled: true
+  IndentOneStep: false
+
+# This cops checks for class and module names with
+# an underscore in them.
+Style/ClassAndModuleCamelCase:
+  Enabled: true
+
+# This cop checks the style of children definitions at classes and
+# modules. Basically there are two different styles:
+#
+# nested - have each child on its own line
+#   class Foo
+#     class Bar
+#     end
+#   end
+#
+# compact - combine definitions as much as possible
+#   class Foo::Bar
+#   end
+Style/ClassAndModuleChildren:
+  Enabled: true
+  EnforcedStyle: nested
+
+# This cop enforces consistent use of `Object#is_a?` or `Object#kind_of?`.
+Style/ClassCheck:
+  Enabled: true
+  EnforcedStyle: is_a?
+
+# This cop checks for uses of the class/module name instead of
+# self, when defining class/module methods.
+#
+# @example
+#   # bad
+#   class SomeClass
+#     def SomeClass.class_method
+#       ...
+#     end
+#   end
+#
+#   # good
+#   class SomeClass
+#     def self.class_method
+#       ...
+#     end
+#   end
+Style/ClassMethods:
+  Enabled: true
+
+# This cop checks for uses of class variables. Offenses
+# are signaled only on assignment to class variables to
+# reduced the number of offenses that would be reported.
+Style/ClassVars:
+  Enabled: true
+
+# This cops checks the indentation of hanging closing parentheses in
+# method calls, method definitions, and grouped expressions. A hanging
+# closing parenthesis means `)` preceded by a line break.
+#
+# @example
+#
+#   # good: when x is on its own line, indent this way
+#   func(
+#     x,
+#     y
+#   )
+#
+#   # good: when x follows opening parenthesis, align parentheses
+#   a = b * (x +
+#            y
+#           )
+#
+#   # bad
+#   def func(
+#     x,
+#     y
+#     )
+Style/ClosingParenthesisIndentation:
+  Enabled: true
+
+# This cop checks for methods invoked via the :: operator instead
+# of the . operator (like FileUtils::rmdir instead of FileUtils.rmdir).
+Style/ColonMethodCall:
+  Enabled: true
+
+# This cops checks the indentation of comments.
+Style/CommentIndentation:
+  Enabled: true
+
+# Check for `if` and `case` statements where each branch is used for
+# assignment to the same variable when using the return of the
+# condition can be used instead.
+#
+# @example
+#   EnforcedStyle: assign_to_condition
+#
+#   # bad
+#   if foo
+#     bar = 1
+#   else
+#     bar = 2
+#   end
+#
+#   case foo
+#   when 'a'
+#     bar += 1
+#   else
+#     bar += 2
+#   end
+#
+#   # good
+#   bar = if foo
+#           1
+#         else
+#           2
+#         end
+#
+#   bar += case foo
+#          when 'a'
+#            1
+#          else
+#            2
+#          end
+Style/ConditionalAssignment:
+  Enabled: true
+  EnforcedStyle: assign_to_condition
+
+# This cop checks whether constant names are written using
+# SCREAMING_SNAKE_CASE.
+#
+# To avoid false positives, it ignores cases in which we cannot know
+# for certain the type of value that would be assigned to a constant.
+Style/ConstantName:
+  Enabled: true
+
+# This cop checks for parentheses in the definition of a method,
+# that does not take any arguments. Both instance and
+# class/singleton methods are checked.
+Style/DefWithParentheses:
+  Enabled: true
+
+# This cop checks the . position in multi-line method calls.
+Style/DotPosition:
+  Enabled: true
+  EnforcedStyle: leading
+
+# This cop checks for loops which iterate a constant number of times,
+# using a Range literal and `#each`. This can be done more readably using
+# `Integer#times`.
+#
+# This check only applies if the block takes no parameters.
+#
+# @example
+#   @bad
+#   (1..5).each { }
+#
+#   @good
+#   5.times { }
+#
+# @example
+#   @bad
+#   (0...10).each {}
+#
+#   @good
+#   10.times {}
+Style/EachForSimpleLoop:
+  Enabled: true
+
+# This cop looks for inject / reduce calls where the passed in object is
+# returned at the end and so could be replaced by each_with_object without
+# the need to return the object at the end.
+#
+# However, we can't replace with each_with_object if the accumulator
+# parameter is assigned to within the block.
+#
+# @example
+#   # bad
+#   [1, 2].inject({}) { |a, e| a[e] = e; a }
+#
+#   # good
+#   [1, 2].each_with_object({}) { |e, a| a[e] = e }
+Style/EachWithObject:
+  Enabled: true
+
+# This cops checks the alignment of else keywords. Normally they should
+# be aligned with an if/unless/while/until/begin/def keyword, but there
+# are special cases when they should follow the same rules as the
+# alignment of end.
+Style/ElseAlignment:
+  Enabled: true
+
+# This cop checks for case statements with an empty condition.
+#
+# @example
+#
+#   # bad:
+#   case
+#   when x == 0
+#     puts 'x is 0'
+#   when y == 0
+#     puts 'y is 0'
+#   else
+#     puts 'neither is 0'
+#   end
+#
+#   # good:
+#   if x == 0
+#     puts 'x is 0'
+#   elsif y == 0
+#     puts 'y is 0'
+#   else
+#     puts 'neither is 0'
+#   end
+Style/EmptyCaseCondition:
+  Enabled: true
+
+# Checks for empty else-clauses, possibly including comments and/or an
+# explicit `nil` depending on the EnforcedStyle.
+#
+#
+# @example
+#   # good for all styles
+#   if condition
+#     statement
+#   else
+#     statement
+#   end
+#
+#   # good for all styles
+#   if condition
+#     statement
+#   end
+#
+# empty - warn only on empty else
+#   @example
+#   # bad
+#   if condition
+#     statement
+#   else
+#   end
+#
+#   # good
+#   if condition
+#     statement
+#   else
+#     nil
+#   end
+Style/EmptyElse:
+  Enabled: true
+  EnforcedStyle: empty
+
+# This cop checks whether method definitions are
+# separated by empty lines.
+Style/EmptyLineBetweenDefs:
+  Enabled: true
+
+# This cops checks for two or more consecutive blank lines.
+Style/EmptyLines:
+  Enabled: true
+
+# This cops checks if empty lines around the bodies of blocks match
+# the configuration.
+#
+# @example
+#
+#   # EnforcedStyle: empty_lines
+#
+#   # good
+#
+#   foo do |bar|
+#
+#     ...
+#
+#   end
+#
+#   # EnforcedStyle: no_empty_lines
+#
+#   # good
+#
+#   foo do |bar|
+#     ...
+#   end
+Style/EmptyLinesAroundBlockBody:
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+
+# This cops checks if empty lines around the bodies of classes match
+# the configuration.
+#
+# @example
+#
+#   EnforcedStyle: empty_lines
+#
+#   # good
+#
+#   class Foo
+#
+#      def bar
+#        ...
+#      end
+#
+#   end
+#
+#   EnforcedStyle: no_empty_lines
+#
+#   # good
+#
+#   class Foo
+#
+#      def bar
+#        ...
+#      end
+#
+#   end
+Style/EmptyLinesAroundClassBody:
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+
+# This cops checks if empty lines around the bodies of modules match
+# the configuration.
+#
+# @example
+#
+#   EnforcedStyle: empty_lines
+#
+#   # good
+#
+#   module Foo
+#
+#     def bar
+#       ...
+#     end
+#
+#   end
+#
+#   EnforcedStyle: no_empty_lines
+#
+#   # good
+#
+#   module Foo
+#     def bar
+#       ...
+#     end
+#   end
+Style/EmptyLinesAroundModuleBody:
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+
+# This cop checks for the use of a method, the result of which
+# would be a literal, like an empty array, hash or string.
+Style/EmptyLiteral:
+  Enabled: true
+
+# This cop checks for places where Integer#even? or Integer#odd?
+# should have been used.
+#
+# @example
+#
+#   # bad
+#   if x % 2 == 0
+#
+#   # good
+#   if x.even?
+Style/EvenOdd:
+  Enabled: true
+
+# This cop checks for extra/unnecessary whitespace.
+#
+# @example
+#
+#   # good if AllowForAlignment is true
+#   name      = "RuboCop"
+#   # Some comment and an empty line
+#
+#   website  += "/bbatsov/rubocop" unless cond
+#   puts        "rubocop"          if     debug
+#
+#   # bad for any configuration
+#   set_app("RuboCop")
+#   website  = "https://github.com/bbatsov/rubocop"
+Style/ExtraSpacing:
+  Enabled: true
+  AllowForAlignment: true
+
+# This cop checks for a line break before the first element in a
+# multi-line array.
+#
+# @example
+#
+#     # bad
+#     [ :a,
+#       :b]
+#
+#     # good
+#     [
+#       :a,
+#       :b]
+#
+Style/FirstArrayElementLineBreak:
+  Enabled: true
+
+# This cop checks for a line break before the first element in a
+# multi-line hash.
+#
+# @example
+#
+#     # bad
+#     { a: 1,
+#       b: 2}
+#
+#     # good
+#     {
+#       a: 1,
+#       b: 2 }
+Style/FirstHashElementLineBreak:
+  Enabled: true
+
+# This cop checks for a line break before the first argument in a
+# multi-line method call.
+#
+# @example
+#
+#     # bad
+#     method(foo, bar,
+#       baz)
+#
+#     # good
+#     method(
+#       foo, bar,
+#       baz)
+#
+#     # ignored
+#     method foo, bar,
+#       baz
+Style/FirstMethodArgumentLineBreak:
+  Enabled: true
+
+# This cop checks the indentation of the first parameter in a method call.
+# Parameters after the first one are checked by Style/AlignParameters, not
+# by this cop.
+#
+# @example
+#
+#   # bad
+#   some_method(
+#   first_param,
+#   second_param)
+#
+#   # good
+#   some_method(
+#     first_param,
+#   second_param)
+Style/FirstParameterIndentation:
+  Enabled: true
+
+# This cop looks for uses of the *for* keyword, or *each* method. The
+# preferred alternative is set in the EnforcedStyle configuration
+# parameter. An *each* call with a block on a single line is always
+# allowed, however.
+Style/For:
+  Enabled: true
+  EnforcedStyle: each
+
+# This cops looks for uses of global variables.
+# It does not report offenses for built-in global variables.
+# Built-in global variables are allowed by default. Additionally
+# users can allow additional variables via the AllowedVariables option.
+#
+# Note that backreferences like $1, $2, etc are not global variables.
+Style/GlobalVars:
+  Enabled: true
+
+# Use a guard clause instead of wrapping the code inside a conditional
+# expression
+#
+# @example
+#   # bad
+#   def test
+#     if something
+#       work
+#     end
+#   end
+#
+#   # good
+#   def test
+#     return unless something
+#     work
+#   end
+#
+#   # also good
+#   def test
+#     work if something
+#   end
+#
+#   # bad
+#   if something
+#     raise 'exception'
+#   else
+#     ok
+#   end
+#
+#   # good
+#   raise 'exception' if something
+#   ok
+Style/GuardClause:
+  Enabled: true
+
+# This cop checks hash literal syntax.
+#
+# It can enforce either the use of the class hash rocket syntax or
+# the use of the newer Ruby 1.9 syntax (when applicable).
+#
+# A separate offense is registered for each problematic pair.
+#
+# The supported styles are:
+#
+# * ruby19 - forces use of the 1.9 syntax (e.g. {a: 1}) when hashes have
+#   all symbols for keys
+# * hash_rockets - forces use of hash rockets for all hashes
+# * no_mixed_keys - simply checks for hashes with mixed syntaxes
+# * ruby19_mixed_keys - forces use of ruby 1.9 syntax and forbids mixed
+#   syntax hashes
+#
+# @example
+#   "EnforcedStyle => 'ruby19'"
+#
+#   @good
+#   {a: 2, b: 1}
+#   {:c => 2, 'd' => 2} # acceptable since 'd' isn't a symbol
+#   {d: 1, 'e' => 2} # technically not forbidden
+#
+#   @bad
+#   {:a => 2}
+#   {b: 1, :c => 2}
+#
+# @example
+#   "EnforcedStyle => 'hash_rockets'"
+#
+#   @good
+#   {:a => 1, :b => 2}
+#
+#   @bad
+#   {a: 1, b: 2}
+#   {c: 1, 'd' => 5}
+#
+# @example
+#   "EnforcedStyle => 'no_mixed_keys'"
+#
+#   @good
+#   {:a => 1, :b => 2}
+#   {c: 1, d: 2}
+#
+#   @bad
+#   {:a => 1, b: 2}
+#   {c: 1, 'd' => 2}
+#
+# @example
+#   "EnforcedStyle => 'ruby19_no_mixed_keys'"
+#
+#   @good
+#   {a: 1, b: 2}
+#   {:c => 3, 'd' => 4}
+#
+#   @bad
+#   {:a => 1, :b => 2}
+#   {c: 2, 'd' => 3} # should just use hash rockets
+Style/HashSyntax:
+  Enabled: true
+  EnforcedStyle: ruby19
+
+# This cop checks for identical lines at the end of each branch of a
+# conditional statement.
+#
+# @example
+#   @bad
+#   if condition
+#     do_x
+#     do_z
+#   else
+#     do_y
+#     do_z
+#   end
+#
+#   @good
+#   if condition
+#     do_x
+#   else
+#     do_y
+#   end
+#   do_z
+Style/IdenticalConditionalBranches:
+  Enabled: true
+
+# If the `else` branch of a conditional consists solely of an `if` node,
+# it can be combined with the `else` to become an `elsif`.
+# This helps to keep the nesting level from getting too deep.
+#
+# @example
+#   @good
+#   if condition_a
+#     action_a
+#   elsif condition_b
+#     action_b
+#   else
+#     action_c
+#   end
+#
+#   @bad
+#   if condition_a
+#     action_a
+#   else
+#     if condition_b
+#       action_b
+#     else
+#       action_c
+#     end
+#   end
+Style/IfInsideElse:
+  Enabled: true
+
+# Checks for if and unless statements that would fit on one line
+# if written as a modifier if/unless.
+# The maximum line length is configurable.
+Style/IfUnlessModifier:
+  Enabled: true
+  Severity: warning
+
+# Checks for if and unless statements used as modifers of other if or
+# unless statements.
+#
+# @example
+#
+#  # bad
+#  tired? ? 'stop' : 'go faster' if running?
+#
+#  # bad
+#  if tired?
+#    "please stop"
+#  else
+#    "keep going"
+#  end if running?
+#
+#  # good
+#  if running?
+#    tired? ? 'stop' : 'go faster'
+#  end
+Style/IfUnlessModifierOfIfUnless:
+  Enabled: true
+
+# Checks for uses of semicolon in if statements.
+Style/IfWithSemicolon:
+  Enabled: true
+
+# This cop checks the indentation of the first element in an array literal
+# where the opening bracket and the first element are on separate lines.
+# The other elements' indentations are handled by the AlignArray cop.
+#
+# By default, array literals that are arguments in a method call with
+# parentheses, and where the opening square bracket of the array is on the
+# same line as the opening parenthesis of the method call, shall have
+# their first element indented one step (two spaces) more than the
+# position inside the opening parenthesis.
+#
+# Other array literals shall have their first element indented one step
+# more than the start of the line where the opening square bracket is.
+#
+# This default style is called 'special_inside_parentheses'. Alternative
+# styles are 'consistent' and 'align_brackets'. Here are examples:
+#
+#     # special_inside_parentheses
+#     array = [
+#       :value
+#     ]
+#     but_in_a_method_call([
+#                            :its_like_this
+#                          ])
+#     # consistent
+#     array = [
+#       :value
+#     ]
+#     and_in_a_method_call([
+#       :no_difference
+#     ])
+#     # align_brackets
+#     and_now_for_something = [
+#                               :completely_different
+#                             ]
+#
+Style/IndentArray:
+  Enabled: true
+  EnforcedStyle: consistent
+
+# This cop checks the indentation of the first line of the
+# right-hand-side of a multi-line assignment.
+#
+# @example
+#   # bad
+#   value =
+#   if foo
+#     'bar'
+#   end
+#
+#   # good
+#   value =
+#     if foo
+#     'bar'
+#   end
+#
+# The indentation of the remaining lines can be corrected with
+# other cops such as `IndentationConsistency` and `EndAlignment`.
+Style/IndentAssignment:
+  Enabled: true
+
+# This cops checks the indentation of the first key in a hash literal
+# where the opening brace and the first key are on separate lines. The
+# other keys' indentations are handled by the AlignHash cop.
+#
+# By default, Hash literals that are arguments in a method call with
+# parentheses, and where the opening curly brace of the hash is on the
+# same line as the opening parenthesis of the method call, shall have
+# their first key indented one step (two spaces) more than the position
+# inside the opening parenthesis.
+#
+# Other hash literals shall have their first key indented one step more
+# than the start of the line where the opening curly brace is.
+#
+# This default style is called 'special_inside_parentheses'. Alternative
+# styles are 'consistent' and 'align_braces'. Here are examples:
+#
+#     # special_inside_parentheses
+#     hash = {
+#       key: :value
+#     }
+#     but_in_a_method_call({
+#                            its_like: :this
+#                          })
+#     # consistent
+#     hash = {
+#       key: :value
+#     }
+#     and_in_a_method_call({
+#       no: :difference
+#     })
+#     # align_braces
+#     and_now_for_something = {
+#                               completely: :different
+#                             }
+Style/IndentHash:
+  Enabled: true
+  EnforcedStyle: consistent
+
+# This cops checks for indentation that doesn't use two spaces.
+#
+# @example
+#
+#   class A
+#    def test
+#     puts 'hello'
+#    end
+#   end
+Style/IndentationWidth:
+  Enabled: true
+
+# Use `Kernel#loop` for infinite loops.
+#
+# @example
+#   # bad
+#   while true
+#     work
+#   end
+#
+#   # good
+#   loop do
+#     work
+#   end
+Style/InfiniteLoop:
+  Enabled: true
+
+# This cop checks for trailing inline comments.
+#
+# @example
+#
+#   # good
+#   foo.each do |f|
+#     # Standalone comment
+#     f.bar
+#   end
+#
+#   # bad
+#   foo.each do |f|
+#     f.bar # Trailing inline comment
+#   end
+Style/InlineComment:
+  Enabled: true
+
+# This cop (by default) checks for uses of the lambda literal syntax for
+# single line lambdas, and the method call syntax for multiline lambdas.
+# It is configurable to enforce one of the styles for both single line
+# and multiline lambdas as well.
+#
+# @example
+#
+#   # EnforcedStyle: line_count_dependent (default)
+#
+#   # bad
+#   f = lambda { |x| x }
+#   f = ->(x) do
+#         x
+#       end
+#
+#   # good
+#   f = ->(x) { x }
+#   f = lambda do |x|
+#         x
+#       end
+#
+# @example
+#
+#   # EnforcedStyle: lambda
+#
+#   # bad
+#   f = ->(x) { x }
+#   f = ->(x) do
+#         x
+#       end
+#
+#   # good
+#   f = lambda { |x| x }
+#   f = lambda do |x|
+#         x
+#       end
+#
+# @example
+#
+#   # EnforcedStyle: literal
+#
+#   # bad
+#   f = lambda { |x| x }
+#   f = lambda do |x|
+#         x
+#       end
+#
+#   # good
+#   f = ->(x) { x }
+#   f = ->(x) do
+#         x
+#       end
+Style/Lambda:
+  Enabled: true
+
+# This cop checks for use of the lambda.(args) syntax.
+#
+# @example
+#
+#  # bad
+#  lambda.(x, y)
+#
+#  # good
+#  lambda.call(x, y)
+Style/LambdaCall:
+  Enabled: true
+
+# This cop checks whether comments have a leading space
+# after the # denoting the start of the comment. The
+# leading space is not required for some RDoc special syntax,
+# like #++, #--, #:nodoc, etc. Neither is it required for
+# =begin/=end comments.
+Style/LeadingCommentSpace:
+  Enabled: true
+
+# This cop checks for string literal concatenation at
+# the end of a line.
+#
+# @example
+#
+#   # bad
+#   some_str = 'ala' +
+#              'bala'
+#
+#   some_str = 'ala' <<
+#              'bala'
+#
+#   # good
+#   some_str = 'ala' \
+#              'bala'
+Style/LineEndConcatenation:
+  Enabled: true
+
+# This cop checks for unwanted parentheses in parameterless method calls.
+Style/MethodCallParentheses:
+  Enabled: true
+
+# This cops checks for parentheses around the arguments in method
+# definitions. Both instance and class/singleton methods are checked.
+Style/MethodDefParentheses:
+  Enabled: true
+  EnforcedStyle: require_parentheses
+
+# This cop makes sure that all methods use the configured style,
+# snake_case or camelCase, for their names. Some special arrangements
+# have to be made for operator methods.
+Style/MethodName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+# This cop checks that the closing brace in an array literal is either
+# on the same line as the last array element, or a new line.
+#
+# When using the `symmetrical` (default) style:
+#
+# If an array's opening brace is on the same line as the first element
+# of the array, then the closing brace should be on the same line as
+# the last element of the array.
+#
+# If an array's opening brace is on the line above the first element
+# of the array, then the closing brace should be on the line below
+# the last element of the array.
+#
+# When using the `new_line` style:
+#
+# The closing brace of a multi-line array literal must be on the line
+# after the last element of the array.
+#
+# When using the `same_line` style:
+#
+# The closing brace of a multi-line array literal must be on the same
+# line as the last element of the array.
+#
+# @example
+#
+#     # symmetrical: bad
+#     # new_line: good
+#     # same_line: bad
+#     [ :a,
+#       :b
+#     ]
+#
+#     # symmetrical: bad
+#     # new_line: bad
+#     # same_line: good
+#     [
+#       :a,
+#       :b ]
+#
+#     # symmetrical: good
+#     # new_line: bad
+#     # same_line: good
+#     [ :a,
+#       :b ]
+#
+#     # symmetrical: good
+#     # new_line: good
+#     # same_line: bad
+#     [
+#       :a,
+#       :b
+#     ]
+Style/MultilineArrayBraceLayout:
+  Enabled: true
+  EnforcedStyle: new_line
+
+# This cop checks whether the multiline do end blocks have a newline
+# after the start of the block. Additionally, it checks whether the block
+# arguments, if any, are on the same line as the start of the block.
+#
+# @example
+#   # bad
+#   blah do |i| foo(i)
+#     bar(i)
+#   end
+#
+#   # bad
+#   blah do
+#     |i| foo(i)
+#     bar(i)
+#   end
+#
+#   # good
+#   blah do |i|
+#     foo(i)
+#     bar(i)
+#   end
+#
+#   # bad
+#   blah { |i| foo(i)
+#     bar(i)
+#   }
+#
+#   # good
+#   blah { |i|
+#     foo(i)
+#     bar(i)
+#   }
+Style/MultilineBlockLayout:
+  Enabled: true
+
+# This cop checks that the closing brace in a hash literal is either
+# on the same line as the last hash element, or a new line.
+#
+# When using the `symmetrical` (default) style:
+#
+# If a hash's opening brace is on the same line as the first element
+# of the hash, then the closing brace should be on the same line as
+# the last element of the hash.
+#
+# If a hash's opening brace is on the line above the first element
+# of the hash, then the closing brace should be on the line below
+# the last element of the hash.
+#
+# When using the `new_line` style:
+#
+# The closing brace of a multi-line hash literal must be on the line
+# after the last element of the hash.
+#
+# When using the `same_line` style:
+#
+# The closing brace of a multi-line hash literal must be on the same
+# line as the last element of the hash.
+#
+# @example
+#
+#     # symmetrical: bad
+#     # new_line: good
+#     # same_line: bad
+#     { a: 1,
+#       b: 2
+#     }
+#
+#     # symmetrical: bad
+#     # new_line: bad
+#     # same_line: good
+#     {
+#       a: 1,
+#       b: 2 }
+#
+#     # symmetrical: good
+#     # new_line: bad
+#     # same_line: good
+#     { a: 1,
+#       b: 2 }
+#
+#     # symmetrical: good
+#     # new_line: good
+#     # same_line: bad
+#     {
+#       a: 1,
+#       b: 2
+#     }
+Style/MultilineHashBraceLayout:
+  Enabled: true
+  EnforcedStyle: new_line
+
+# Checks for uses of the `then` keyword in multi-line if statements.
+#
+# @example This is considered bad practice:
+#
+#   if cond then
+#   end
+#
+# @example If statements can contain `then` on the same line:
+#
+#   if cond then a
+#   elsif cond then b
+#   end
+Style/MultilineIfThen:
+  Enabled: true
+
+# This cop checks that the closing brace in a method call is either
+# on the same line as the last method argument, or a new line.
+#
+# When using the `symmetrical` (default) style:
+#
+# If a method call's opening brace is on the same line as the first
+# argument of the call, then the closing brace should be on the same
+# line as the last argument of the call.
+#
+# If an method call's opening brace is on the line above the first
+# argument of the call, then the closing brace should be on the line
+# below the last argument of the call.
+#
+# When using the `new_line` style:
+#
+# The closing brace of a multi-line method call must be on the line
+# after the last argument of the call.
+#
+# When using the `same_line` style:
+#
+# The closing brace of a multi-line method call must be on the same
+# line as the last argument of the call.
+#
+# @example
+#
+#     # symmetrical: bad
+#     # new_line: good
+#     # same_line: bad
+#     foo(a,
+#       b
+#     )
+#
+#     # symmetrical: bad
+#     # new_line: bad
+#     # same_line: good
+#     foo(
+#       a,
+#       b)
+#
+#     # symmetrical: good
+#     # new_line: bad
+#     # same_line: good
+#     foo(a,
+#       b)
+#
+#     # symmetrical: good
+#     # new_line: good
+#     # same_line: bad
+#     foo(
+#       a,
+#       b
+#     )
+Style/MultilineMethodCallBraceLayout:
+  Enabled: true
+  EnforcedStyle: new_line
+
+# This cop checks the indentation of the method name part in method calls
+# that span more than one line.
+#
+# @example
+#   # bad
+#   while a
+#   .b
+#     something
+#   end
+#
+#   # good, EnforcedStyle: aligned
+#   while a
+#         .b
+#     something
+#   end
+#
+#   # good, EnforcedStyle: aligned
+#   Thing.a
+#        .b
+#        .c
+#
+#   # good, EnforcedStyle: indented
+#   while a
+#       .b
+#     something
+#   end
+# Style/MultilineMethodCallIndentation:
+#   Enabled: true
+#   EnforcedStyle: aligned
+
+# This cop checks that the closing brace in a method definition is either
+# on the same line as the last method parameter, or a new line.
+#
+# When using the `symmetrical` (default) style:
+#
+# If a method definition's opening brace is on the same line as the
+# first parameter of the definition, then the closing brace should be
+# on the same line as the last parameter of the definition.
+#
+# If an method definition's opening brace is on the line above the first
+# parameter of the definition, then the closing brace should be on the
+# line below the last parameter of the definition.
+#
+# When using the `new_line` style:
+#
+# The closing brace of a multi-line method definition must be on the line
+# after the last parameter of the definition.
+#
+# When using the `same_line` style:
+#
+# The closing brace of a multi-line method definition must be on the same
+# line as the last parameter of the definition.
+#
+# @example
+#
+#     # symmetrical: bad
+#     # new_line: good
+#     # same_line: bad
+#     def foo(a,
+#       b
+#     )
+#
+#     # symmetrical: bad
+#     # new_line: bad
+#     # same_line: good
+#     def foo(
+#       a,
+#       b)
+#
+#     # symmetrical: good
+#     # new_line: bad
+#     # same_line: good
+#     def foo(a,
+#       b)
+#
+#     # symmetrical: good
+#     # new_line: good
+#     # same_line: bad
+#     def foo(
+#       a,
+#       b
+#     )
+Style/MultilineMethodDefinitionBraceLayout:
+  Enabled: true
+  EnforcedStyle: new_line
+
+# This cop checks for multi-line ternary op expressions.
+Style/MultilineTernaryOperator:
+  Enabled: true
+
+# Checks for uses of if with a negated condition. Only ifs
+# without else are considered.
+Style/NegatedIf:
+  Enabled: true
+
+# Checks for uses of while with a negated condition.
+Style/NegatedWhile:
+  Enabled: true
+
+# This cop checks for nested use of if, unless, while and until in their
+# modifier form.
+#
+# @example
+#
+#   # bad
+#   something if a if b
+#
+#   # good
+#   something if b && a
+Style/NestedModifier:
+  Enabled: true
+
+# This cop checks for unparenthesized method calls in the argument list
+# of a parenthesized method call.
+#
+# @example
+#   @good
+#   method1(method2(arg), method3(arg))
+#
+#   @bad
+#   method1(method2 arg, method3, arg)
+Style/NestedParenthesizedCalls:
+  Enabled: true
+
+# This cop checks for nested ternary op expressions.
+Style/NestedTernaryOperator:
+  Enabled: true
+
+# Use `next` to skip iteration instead of a condition at the end.
+#
+# @example
+#   # bad
+#   [1, 2].each do |a|
+#     if a == 1 do
+#       puts a
+#     end
+#   end
+#
+#   # good
+#   [1, 2].each do |a|
+#     next unless a == 1
+#     puts a
+#   end
+Style/Next:
+  Enabled: true
+
+# This cop checks for comparison of something with nil using ==.
+#
+# @example
+#
+#  # bad
+#  if x == nil
+#
+#  # good
+#  if x.nil?
+# Style/NilComparison:
+#   Enabled: true
+
+# This cop checks for non-nil checks, which are usually redundant.
+#
+# @example
+#
+#  # bad
+#  if x != nil
+#
+#  # good (when not allowing semantic changes)
+#  # bad (when allowing semantic changes)
+#  if !x.nil?
+#
+#  # good (when allowing semantic changes)
+#  if x
+#
+# Non-nil checks are allowed if they are the final nodes of predicate.
+#
+#  # good
+#  def signed_in?
+#    !current_user.nil?
+#  end
+# Style/NonNilCheck:
+#   Enabled: true
+
+# This cop checks for uses if the keyword *not* instead of !.
+Style/Not:
+  Enabled: true
+
+# This cop checks for big numeric literals without _ between groups
+# of digits in them.
+Style/NumericLiterals:
+  Enabled: true
+
+# This cop checks for usage of comparison operators (`==`, `!=`,
+# `>`, `<`) to test numbers as zero, nonzero, positive, or negative.
+# These can be replaced by their respective predicate methods.
+# The cop can also be configured to do the reverse.
+#
+# @example
+#
+#   # EnforcedStyle: predicate (default)
+#
+#   # bad
+#
+#   foo == 0
+#   0 != bar.baz
+#   0 > foo
+#   bar.baz > 0
+#
+#   # good
+#
+#   foo.zero?
+#   bar.baz.nonzero?
+#   foo.negative?
+#   bar.baz.positive?
+#
+# @example
+#
+#   # EnforcedStyle: comparison
+#
+#   # bad
+#
+#   foo.zero?
+#   bar.baz.nonzero?
+#   foo.negative?
+#   bar.baz.positive?
+#
+#   # good
+#
+#   foo == 0
+#   0 != bar.baz
+#   0 > foo
+#   bar.baz > 0
+# Style/NumericPredicate:
+#   Enabled: true
+
+# Checks for uses of if/then/else/end on a single line.
+Style/OneLineConditional:
+  Enabled: true
+
+# This cop checks for optional arguments to methods
+# that do not come at the end of the argument list
+#
+# @example
+#   # bad
+#   def foo(a = 1, b, c)
+#   end
+#
+#   # good
+#   def baz(a, b, c = 1)
+#   end
+#
+#   def foobar(a = 1, b = 2, c = 3)
+#   end
+Style/OptionalArguments:
+  Enabled: true
+
+# Checks for simple usages of parallel assignment.
+# This will only complain when the number of variables
+# being assigned matched the number of assigning variables.
+#
+# @example
+#   # bad
+#   a, b, c = 1, 2, 3
+#   a, b, c = [1, 2, 3]
+#
+#   # good
+#   one, two = *foo
+#   a, b = foo()
+#   a, b = b, a
+#
+#   a = 1
+#   b = 2
+#   c = 3
+Style/ParallelAssignment:
+  Enabled: true
+
+# This cop checks for the presence of superfluous parentheses around the
+# condition of if/unless/while/until.
+Style/ParenthesesAroundCondition:
+  Enabled: true
+
+# This cop makes sure that predicates are named properly.
+#
+# @example
+#   # bad
+#   def is_even?(value) ...
+#
+#   # good
+#   def even?(value)
+#
+#   # bad
+#   def has_value? ...
+#
+#   # good
+#   def value? ...
+Style/PredicateName:
+  Enabled: true
+
+# This cop checks for uses of methods Hash#has_key? and Hash#has_value?
+# Prefer to use Hash#key? and Hash#value? instead
+Style/PreferredHashMethods:
+  Enabled: true
+
+# This cops checks for uses of Proc.new where Kernel#proc
+# would be more appropriate.
+Style/Proc:
+  Enabled: true
+
+# This cop checks for redundant `begin` blocks.
+#
+# Currently it checks for code like this:
+#
+# @example
+#
+#   def redundant
+#     begin
+#       ala
+#       bala
+#     rescue StandardError => e
+#       something
+#     end
+#   end
+#
+#   def preferred
+#     ala
+#     bala
+#   rescue StandardError => e
+#     something
+#   end
+Style/RedundantBegin:
+  Enabled: true
+
+# This cop checks for RuntimeError as the argument of raise/fail.
+#
+# It checks for code like this:
+#
+# @example
+#   # Bad
+#   raise RuntimeError, 'message'
+#
+#   # Bad
+#   raise RuntimeError.new('message')
+#
+#   # Good
+#   raise 'message'
+Style/RedundantException:
+  Enabled: true
+
+# This cop check for uses of Object#freeze on immutable objects.
+#
+# @example
+#   # bad
+#   CONST = 1.freeze
+#
+#   # good
+#   CONST = 1
+Style/RedundantFreeze:
+  Enabled: true
+
+# This cop checks for redundant parentheses.
+#
+# @example
+#
+#   # bad
+#   (x) if ((y.z).nil?)
+#
+#   # good
+#   x if y.z.nil?
+#
+Style/RedundantParentheses:
+  Enabled: true
+
+# This cop checks for redundant `return` expressions.
+#
+# @example
+#
+#   def test
+#     return something
+#   end
+#
+#   def test
+#     one
+#     two
+#     three
+#     return something
+#   end
+#
+# It should be extended to handle methods whose body is if/else
+# or a case expression with a default branch.
+Style/RedundantReturn:
+  Enabled: true
+
+# This cop checks for redundant uses of `self`.
+#
+# `self` is only needed when:
+#
+# * Sending a message to same object with zero arguments in
+#   presence of a method name clash with an argument or a local
+#   variable.
+#
+#   Note, with using explicit self you can only send messages
+#   with public or protected scope, you cannot send private
+#   messages this way.
+#
+#   Example:
+#
+#   def bar
+#     :baz
+#   end
+#
+#   def foo(bar)
+#     self.bar # resolves name clash with argument
+#   end
+#
+#   def foo2
+#     bar = 1
+#     self.bar # resolves name clash with local variable
+#   end
+#
+# * Calling an attribute writer to prevent an local variable assignment
+#
+#   attr_writer :bar
+#
+#   def foo
+#     self.bar= 1 # Make sure above attr writer is called
+#   end
+#
+# Special cases:
+#
+# We allow uses of `self` with operators because it would be awkward
+# otherwise.
+Style/RedundantSelf:
+  Enabled: true
+
+# This cop checks whether the rescue and ensure keywords are aligned
+# properly.
+#
+# @example
+#
+#   # bad
+#   begin
+#     something
+#     rescue
+#     puts 'error'
+#   end
+#
+#   # good
+#   begin
+#     something
+#   rescue
+#     puts 'error'
+#   end
+Style/RescueEnsureAlignment:
+  Enabled: true
+
+# This cop checks for uses of rescue in its modifier form.
+# Style/RescueModifier:
+#   Enabled: true
+
+# This cop enforces the use the shorthand for self-assignment.
+#
+# @example
+#
+#   # bad
+#   x = x + 1
+#
+#   # good
+#   x += 1
+Style/SelfAssignment:
+  Enabled: true
+
+# This cop checks for multiple expressions placed on the same line.
+# It also checks for lines terminated with a semicolon.
+Style/Semicolon:
+  Enabled: true
+
+# This cop checks for uses of `fail` and `raise`.
+Style/SignalException:
+  Enabled: true
+  EnforcedStyle: only_raise
+
+# This cop checks for single-line method definitions.
+# It can optionally accept single-line methods with no body.
+Style/SingleLineMethods:
+  Enabled: true
+  AllowIfMethodIsEmpty: false
+
+# Checks for colon (:) not followed by some kind of space.
+# N.B. this cop does not handle spaces after a ternary operator, which are
+# instead handled by Style/SpaceAroundOperators.
+Style/SpaceAfterColon:
+  Enabled: true
+
+# Checks for comma (,) not followed by some kind of space.
+Style/SpaceAfterComma:
+  Enabled: true
+
+# Checks for space between a method name and a left parenthesis in defs.
+#
+# @example
+#
+#   # bad
+#   def func (x) ... end
+#
+#   # good
+#   def func(x) ... end
+Style/SpaceAfterMethodName:
+  Enabled: true
+
+# This cop checks for space after `!`.
+#
+# @example
+#   # bad
+#   ! something
+#
+#   # good
+#   !something
+Style/SpaceAfterNot:
+  Enabled: true
+
+# Checks the spacing inside and after block parameters pipes.
+#
+# @example
+#
+#   # bad
+#   {}.each { | x,  y |puts x }
+#
+#   # good
+#   {}.each { |x, y| puts x }
+Style/SpaceAroundBlockParameters:
+  Enabled: true
+
+# Checks that the equals signs in parameter default assignments
+# have or don't have surrounding space depending on configuration.
+Style/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+  EnforcedStyle: space
+
+# Checks the spacing around the keywords.
+#
+# @example
+#
+#   # bad
+#   something 'test'do|x|
+#   end
+#
+#   while(something)
+#   end
+#
+#   something = 123if test
+#
+#   # good
+#   something 'test' do |x|
+#   end
+#
+#   while (something)
+#   end
+#
+#   something = 123 if test
+Style/SpaceAroundKeyword:
+  Enabled: true
+
+# Checks that operators have space around them, except for **
+# which should not have surrounding space.
+Style/SpaceAroundOperators:
+  Enabled: true
+
+# Checks that block braces have or don't have a space before the opening
+# brace depending on configuration.
+Style/SpaceBeforeBlockBraces:
+  Enabled: true
+  EnforcedStyle: space
+
+# Checks for comma (,) preceded by space.
+Style/SpaceBeforeComma:
+  Enabled: true
+
+# Checks that exactly one space is used between a method name and the
+# first argument for method calls without parentheses.
+#
+# Alternatively, extra spaces can be added to align the argument with
+# something on a preceding or following line, if the AllowForAlignment
+# config parameter is true.
+#
+# @example
+#   @bad
+#   something  x
+#   something   y, z
+#
+Style/SpaceBeforeFirstArg:
+  Enabled: true
+  AllowForAlignment: true
+
+# Checks that block braces have or don't have surrounding space inside
+# them on configuration. For blocks taking parameters, it checks that the
+# left brace has or doesn't have trailing space depending on
+# configuration.
+Style/SpaceInsideBlockBraces:
+  Enabled: true
+  EnforcedStyle: space
+
+# Checks for spaces inside range literals.
+#
+# @example
+#   # bad
+#   1 .. 3
+#
+#   # good
+#   1..3
+#
+#   # bad
+#   'a' .. 'z'
+#
+#   # good
+#   'a'..'z'
+Style/SpaceInsideRangeLiteral:
+  Enabled: true
+
+# This cop checks for whitespace within string interpolations.
+#
+# @example
+#   # Good if EnforcedStyle is no_space, bad if space.
+#      var = "This is the #{no_space} example"
+#
+#   # Good if EnforcedStyle is space, bad if no_space.
+#      var = "This is the #{ space } example"
+Style/SpaceInsideStringInterpolation:
+  Enabled: true
+  EnforcedStyle: no_space
+
+# Check for parentheses around stabby lambda arguments.
+# There are two different styles. Defaults to `require_parentheses`.
+#
+# @example
+#   # require_parentheses - bad
+#   ->a,b,c { a + b + c }
+#
+#   # require_parentheses - good
+#   ->(a,b,c) { a + b + c}
+#
+#   # require_no_parentheses - bad
+#   ->(a,b,c) { a + b + c }
+#
+#   # require_no_parentheses - good
+#   ->a,b,c { a + b + c}
+Style/StabbyLambdaParentheses:
+  Enabled: true
+  EnforcedStyle: require_parentheses
+
+# Checks if uses of quotes match the configured preference.
+# Style/StringLiterals:
+#   Enabled: true
+#   EnforcedStyle: single_quotes
+#   ConsistentQuotesInMultiline: true
+
+# This cop checks symbol literal syntax.
+#
+# @example
+#
+#   # bad
+#   :"symbol"
+#
+#   # good
+#   :symbol
+Style/SymbolLiteral:
+  Enabled: true
+
+# Use symbols as procs when possible.
+#
+# @example
+#   # bad
+#   something.map { |s| s.upcase }
+#
+#   # good
+#   something.map(&:upcase)
+# Style/SymbolProc:
+#   Enabled: true
+
+# This cop checks for tabs inside the source code.
+Style/Tab:
+  Enabled: true
+
+# This cop looks for trailing blank lines and a final newline in the
+# source code.
+# Style/TrailingBlankLines:
+#   Enabled: true
+
+# This cop checks for trailing comma in argument lists.
+#
+# @example
+#   # always bad
+#   method(1, 2,)
+#
+#   # good if EnforcedStyleForMultiline is consistent_comma
+#   method(
+#     1, 2,
+#     3,
+#   )
+#
+#   # good if EnforcedStyleForMultiline is comma or consistent_comma
+#   method(
+#     1,
+#     2,
+#   )
+#
+#   # good if EnforcedStyleForMultiline is no_comma
+#   method(
+#     1,
+#     2
+#   )
+Style/TrailingCommaInArguments:
+  Enabled: true
+  EnforcedStyleForMultiline: no_comma
+
+# This cop looks for trivial reader/writer methods, that could
+# have been created with the attr_* family of functions automatically.
+Style/TrivialAccessors:
+  Enabled: true
+  AllowPredicates: true
+  AllowDSLWriters: true
+
+# This cop looks for *unless* expressions with *else* clauses.
+Style/UnlessElse:
+  Enabled: true
+
+# This cop checks for strings that are just an interpolated expression.
+#
+# @example
+#
+#   # bad
+#   "#{@var}"
+#
+#   # good
+#   @var.to_s
+#
+#   # good if @var is already a String
+#   @var
+Style/UnneededInterpolation:
+  Enabled: true
+
+# This cop checks for variable interpolation (like "#@ivar").
+Style/VariableInterpolation:
+  Enabled: true
+
+# This cop makes sure that all variables use the configured style,
+# snake_case or camelCase, for their names.
+Style/VariableName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+# This cop makes sure that all numbered variables use the
+# configured style, snake_case, normalcase or non_integer,
+# for their numbering.
+#
+# @example
+#   "EnforcedStyle => 'snake_case'"
+#
+#   # bad
+#
+#   variable1 = 1
+#
+#   # good
+#
+#   variable_1 = 1
+#
+# @example
+#   "EnforcedStyle => 'normalcase'"
+#
+#   # bad
+#
+#   variable_1 = 1
+#
+#   # good
+#
+#   variable1 = 1
+#
+# @example
+#   "EnforcedStyle => 'non_integer'"
+#
+#   #bad
+#
+#   variable1 = 1
+#
+#   variable_1 = 1
+#
+#   #good
+#
+#   variableone = 1
+#
+#   variable_one = 1
+#
+# Style/VariableNumber:
+#   Enabled: true
+#   EnforcedStyle: snake_case
+
+# This cop checks for *when;* uses in *case* expressions.
+Style/WhenThen:
+  Enabled: true
+
+# Checks for while and until statements that would fit on one line
+# if written as a modifier while/until.
+# The maximum line length is configurable.
+Style/WhileUntilModifier:
+  Enabled: true
+  Severity: warning
+
+# This cop checks for receiver.length == 0 predicates and the
+# negated versions receiver.length > 0 and receiver.length != 0.
+# These can be replaced with receiver.empty? and
+# !receiver.empty? respectively.
+#
+# @example
+#
+#   @bad
+#   [1, 2, 3].length == 0
+#   0 == "foobar".length
+#   hash.size > 0
+#
+#   @good
+#   [1, 2, 3].empty?
+#   "foobar".empty?
+#   !hash.empty?
+Style/ZeroLengthPredicate:
+  Enabled: true
