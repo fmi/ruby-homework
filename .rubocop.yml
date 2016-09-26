@@ -1316,8 +1316,8 @@ Style/GlobalVars:
 #   # good
 #   raise 'exception' if something
 #   ok
-Style/GuardClause:
-  Enabled: true
+# Style/GuardClause:
+#   Enabled: true
 
 # This cop checks hash literal syntax.
 #
