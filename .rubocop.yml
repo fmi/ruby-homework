@@ -2364,8 +2364,8 @@ Style/RedundantReturn:
 #
 # We allow uses of `self` with operators because it would be awkward
 # otherwise.
-Style/RedundantSelf:
-  Enabled: true
+# Style/RedundantSelf:
+#   Enabled: true
 
 # This cop checks whether the rescue and ensure keywords are aligned
 # properly.
