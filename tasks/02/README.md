@@ -21,8 +21,8 @@ order = {
     variant: 'chocolate',
     rating: 10,
     comments: [
-        {text: 'So sweet!'},
-        {text: 'A perfect blend of milk chocolate and cookies. With a cherry on top.'}
+      {text: 'So sweet!'},
+      {text: 'A perfect blend of milk chocolate and cookies. With a cherry on top.'}
     ]
   }
 }
@@ -34,6 +34,8 @@ order = {
 Тоест, `order.fetch_deep('dessert.variant')` трябва да върне `chocolate`.
 
 Разбира се, пътят може да се състои и само от един ключ - `order.fetch_deep('dessert') #=> хешът с тортата`.
+
+**Бележка: ** може да използвате `self` вътре в методите, за да достъпите обекта, върху който се извикват.
 
 `fetch_deep` трябва да поддържа и ключове към масиви.
 В този случай вместо ключ на хеш може да има индекс на масив:
@@ -129,8 +131,8 @@ inventory.reshape(shape)
 # ]
 ```
 
-Тук `shape` е хеш с единствен елемент - видът, в който трябва да се преобразува всеки
-елемент на `order`. `shape` трябва да се държи като аргумент на `Hash#reshape`.
+Тук `shape` е видът, в който трябва да се преобразува всеки елемент на `inventory`.
+`shape` трябва да се държи като аргумент на `Hash#reshape`.
 
 ## Други неща
 
