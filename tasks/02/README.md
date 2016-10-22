@@ -141,5 +141,5 @@ inventory.reshape(shape)
 
 Можете да ни пишете и ако имате проблеми с определена част от имплементацията - ще ви дадем насоки.
 
-Не забравяйте да си пуснете [примерните тестове](https://github.com/fmi/ruby-secrets/tree/master/tasks/2016/02)
+Не забравяйте да си пуснете [примерните тестове](https://github.com/fmi/ruby-homework/blob/master/tasks/02/sample_spec.rb)
 преди да предадете решение. Успех!
