@@ -47,8 +47,7 @@ describe CommandParser do
       parser.option('v', 'verbose', 'Verbose mode') { |_, _| }
       parser.option_with_parameter('r', 'require', 'require FILE in spec', 'FILE') { |_, _| }
 
-      header = parser.help.lines.first.chomp
-      options_help_messages = parser.help.lines.map(&:chomp).drop(1)
+      header, *options_help_messages = parser.help.lines.map(&:chomp)
 
       expect(header).to eq 'Usage: rspec [SPEC FILE]'
       expect(options_help_messages).to match_array([
