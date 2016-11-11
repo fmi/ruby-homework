@@ -1,0 +1,8 @@
+inherit_from: https://raw.githubusercontent.com/fmi/ruby-homework/master/.rubocop.yml
+
+AllCops:
+  DisabledByDefault: true
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 80
