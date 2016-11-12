@@ -25,7 +25,7 @@ class Version
 
     if padding_size > 0
       @components + [0] * padding_size
-    elsif padding_size < 0
+    elsif positions != 0
       @components.take(positions)
     else
       @components.dup
