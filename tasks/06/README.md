@@ -233,6 +233,7 @@ you_have_been_terminated
 ### Още за функциите
 
 Функциите поддържат рекурсия (което е и единственият метод за циклене в езика):
+
 ```ruby
 # def _to_infinity_and_beyond(_n)
 #   print _n
