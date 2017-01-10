@@ -677,22 +677,6 @@ Performance/RedundantMerge:
 Performance/RedundantSortBy:
   Enabled: true
 
-# This cop identifies places where `sort { |a, b| a.foo <=> b.foo }`
-# can be replaced by `sort_by(&:foo)`.
-#
-# @example
-#   @bad
-#   array.sort { |a, b| a.foo <=> b.foo }
-#
-#   @good
-#   array.sort_by(&:foo)
-#   array.sort_by { |v| v.foo }
-#   array.sort_by do |var|
-#     var.foo
-#   end
-Performance/SortWithBlock:
-  Enabled: true
-
 # This cop identifies unnecessary use of a regex where
 # `String#start_with?` would suffice.
 #
