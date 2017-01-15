@@ -1,5 +1,6 @@
 AllCops:
   DisabledByDefault: true
+  TargetRubyVersion: 2.3
 
 # Disable the FileName cop as we are using RuboCop by giving it a string, for which
 # the default filename is `(string)`. This file name is invalid.
